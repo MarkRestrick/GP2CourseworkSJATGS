@@ -24,13 +24,13 @@ void MyGame::initScene()
 
 
 	//KS Changed to Array and vector that can be iterated through
-	string modelPath [] {"/Earth.fbx", "/Earth.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx" };
-	string vsFilename[] {"/parallaxMappingVS2.glsl" ,"/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl" };
-	string fsFilename[] {"/parallaxMappingFS2.glsl" ,"/parallaxMappingFS2.glsl", "/parallaxMappingFS2.glsl", "/parallaxMappingFS2.glsl", "/parallaxMappingFS2.glsl", "/parallaxMappingFS2.glsl" };
-	string diffTextureFileName[]{"/bricks_diff.jpg","/TBall_Diff.jpg", "/floor.jpg", "/bricks_diff.jpg", "/bricks_diff.jpg", "/bricks_diff.jpg" };
-	string specTextureFilename[]{"/bricks_spec.png","/TBall_Spec.png", "/Floor_Spec.png", "/bricks_spec.png", "/bricks_spec.png", "/bricks_spec.png" };
-	string normTextureFilename[]{"/bricks_norm.png","/TBall_Norm.png", "/Floor_N.png", "/bricks_norm.png", "/bricks_norm.png", "/bricks_norm.png" };
-	string heightTextureFilename[]{"/bricks_height.png","/TBall_Height.png", "/Floor_H.png", "/bricks_height.png", "/bricks_height.png", "/bricks_height.png" };
+	string modelPath [] {"/Earth.fbx", "/Earth.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx" };
+	string vsFilename[] {"/parallaxMappingVS2.glsl" ,"/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl" };
+	string fsFilename[] {"/parallaxMappingFS2.glsl" ,"/parallaxMappingFS2.glsl", "/parallaxMappingFS2.glsl", "/parallaxMappingFS2.glsl", "/parallaxMappingFS2.glsl", "/parallaxMappingFS2.glsl" , "/parallaxMappingFS2.glsl" };
+	string diffTextureFileName[]{"/bricks_diff.jpg","/TBall_Diff.jpg", "/floor.jpg", "/bricks_diff.jpg", "/bricks_diff.jpg", "/bricks_diff.jpg" , "/bricks_diff.jpg" };
+	string specTextureFilename[]{"/bricks_spec.png","/TBall_Spec.png", "/Floor_Spec.png", "/bricks_spec.png", "/bricks_spec.png", "/bricks_spec.png", "/bricks_spec.png" };
+	string normTextureFilename[]{"/bricks_norm.png","/TBall_Norm.png", "/Floor_N.png", "/bricks_norm.png", "/bricks_norm.png", "/bricks_norm.png", "/bricks_norm.png" };
+	string heightTextureFilename[]{"/bricks_height.png","/TBall_Height.png", "/Floor_H.png", "/bricks_height.png", "/bricks_height.png", "/bricks_height.png", "/bricks_height.png" };
 
 	//string vsFilenameContainter[] { light, lightex, normal, parallax} MRKS Later optimisation, save objects and call via define
 
@@ -43,7 +43,8 @@ void MyGame::initScene()
 		vec3(100.0f, 1.0f, 100.0f), //MR Floor
 		vec3(100.0f, 100.0f, 1.0f), //MR Back wall
 		vec3(100.0f, 100.0f, 1.0f), //MR left wall
-		vec3(100.0f, 100.0f, 1.0f) //MR Right wall
+		vec3(100.0f, 100.0f, 1.0f),
+		vec3(1.0f, 1.0f, 1.0f)
 	};
 	vec3 position[]
 	{
@@ -52,7 +53,8 @@ void MyGame::initScene()
 		vec3(0.0f, 0.0f, 0.0f), //MR Floor
 		vec3(0.0f, 0.0f, 0.0f), //MR Back Wall
 		vec3(-50.0f, 0.0f, 50.0f), //MR left wall
-		vec3(50.0f, 0.0f, 50.0f) //MR right wall
+		vec3(50.0f, 0.0f, 50.0f),
+		vec3(500.0f, 0.0f, 50.0f)
 
 
 	};
@@ -63,7 +65,8 @@ void MyGame::initScene()
 		vec3(0.0f, 0.0f, 0.0f), //MR Floor
 		vec3(0.0f, 0.0f, 0.0f), //MR Back Wall
 		vec3(0.0f, radians(90.0f), 0.0f), //MR left wall
-		vec3(0.0f, radians(90.0f), 0.0f)
+		vec3(0.0f, radians(-90.0f), 0.0f),
+		vec3(0.0f, radians(-90.0f), 0.0f)
 
 	};
 
@@ -91,6 +94,21 @@ void MyGame::initScene()
 	m_Light->SpecularColour = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_Light->Direction = vec3(0.0f, 0.0f, -1.0f);
 	m_AmbientLightColour = vec4(0.5f, 0.5f, 0.5f, 1.0f);
+
+
+	m_PostBuffer = shared_ptr<PostProcessBuffer>(new PostProcessBuffer());
+	m_PostBuffer->create(m_WindowWidth, m_WindowHeight);
+
+	m_ScreenAlignedQuad = shared_ptr<ScreenAlignedQuad>(new ScreenAlignedQuad());
+	m_ScreenAlignedQuad->create();
+
+	const std::string ASSET_PATH = "assets";
+	const std::string SHADER_PATH = "/shaders";
+	string fsPostFilename = ASSET_PATH + SHADER_PATH + "/colourFilterFS.glsl";
+
+	m_PostEffect = shared_ptr<PostProcessingEffect>(new PostProcessingEffect());
+	m_PostEffect->loadShader(fsPostFilename);
+	
 }
 
 
@@ -116,6 +134,10 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 
 void MyGame::destroyScene()
 {
+
+	m_PostEffect->destroy();
+	m_ScreenAlignedQuad->destroy();
+	m_PostBuffer->destroy();
 
 	//KS loop through vertor to delect all ojs
 	for each (shared_ptr<GameObject> temp in GOList)
@@ -150,8 +172,14 @@ void MyGame::update()
 
 void MyGame::render()
 {
+
+	m_PostBuffer->bind();
+
 	GameApplication::render();
 	
+	
+
+
 	//KS loop through vertor to render all ojs
 	for each (shared_ptr<GameObject> temp in GOList)
 	{
@@ -176,4 +204,18 @@ void MyGame::render()
 
 		//GOList.pop_back();
 	}
+
+	m_PostBuffer->unbind();
+
+	m_PostEffect->bind();
+	GLuint currentShader = m_PostEffect->getShaderProgram();
+
+	GLint textureLocation = glGetUniformLocation(currentShader, "texture0");
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, m_PostBuffer->GetTexture());
+	glUniform1i(textureLocation, 0);
+
+	m_ScreenAlignedQuad->render();
+	m_PostBuffer->unbind();
+	//Do above again but with out the object for loop
 }

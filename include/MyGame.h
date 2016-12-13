@@ -15,6 +15,14 @@ public:
 	void destroyScene();
 
 	void onKeyDown(SDL_Keycode keyCode);
+
+protected:
+
+	//Post Processing
+	shared_ptr<PostProcessBuffer> m_PostBuffer;
+	shared_ptr<ScreenAlignedQuad> m_ScreenAlignedQuad;
+	shared_ptr<PostProcessingEffect> m_PostEffect;
+
 private:
 	//matrices
 	mat4 m_ViewMatrix;

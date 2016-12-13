@@ -6,7 +6,9 @@
 #include "Texture.h"
 #include "Vertex.h"
 #include "ModelLoading.h"
-
+#include "PostProcessBuffer.h"
+#include "PostProcessingEffect.h"
+#include "ScreenAlignedQuad.h"
 #include "GameObject.h"
 #include "Light.h"
 
