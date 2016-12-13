@@ -82,7 +82,7 @@ void MyGame::initScene()
 	}
 
 	m_CameraRotation = vec3(0.0f, 0.0f, 0.0f);
-	m_CameraPosition = vec3(0.0f, 50.0f, 150.0f);
+	m_CameraPosition = vec3(0.0f, 25.0f, 150.0f);
 	m_CameraLookAtPosition = vec3(cos(m_CameraRotation.y), 0, sin(m_CameraRotation.y));
 
 	m_Light = shared_ptr<Light>(new Light());
@@ -109,13 +109,19 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 
 	if (keyCode== SDLK_w)
 	{
-		m_CameraPosition += vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)));
-		//m_CameraPosition += (vec3(0.0f, 0.0f, -1.0f));
+		bool temp = false;
+		for each (shared_ptr<GameObject> gameObject in GOList)
+		{
+			if (gameObject->checkCollision(m_CameraPosition + vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)))))
+			{
+				temp = true;
+			}
+		}
 
-		//vec3 postionNormalised = m_CameraPosition - m_CameraLookAtPosition;
-		//float length = sqrt(postionNormalised.x * postionNormalised.x + postionNormalised.y * postionNormalised.y + postionNormalised.z * postionNormalised.z);
-		//postionNormalised = postionNormalised / length;
-		//m_CameraLookAtPosition = m_CameraPosition + postionNormalised;
+		if (!temp)
+		{
+			m_CameraPosition += vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)));
+		}
 	}
 	else if (keyCode== SDLK_s)
 	{
