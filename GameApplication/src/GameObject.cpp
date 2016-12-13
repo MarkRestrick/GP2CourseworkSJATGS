@@ -30,8 +30,10 @@ void GameObject::onUpdate()
 void GameObject::onRender(mat4& view, mat4& projection)
 {
 	GLuint VAO = m_GameObjectMesh.getVAO ();
+	GLuint VBO = m_GameObjectMesh.getVBO();
+	GLuint EBO = m_GameObjectMesh.getEBO();
 	GLuint numberOfVertices = m_GameObjectMesh.getNumberOfIndices();
-	m_GameObjectRenderer.onRender(view, projection, VAO, m_ModelMatrix, numberOfVertices);
+	m_GameObjectRenderer.onRender(view, projection, VAO, m_ModelMatrix, numberOfVertices, VBO, EBO);
 }
 
 void GameObject::onInit()

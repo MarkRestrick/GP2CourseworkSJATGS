@@ -24,27 +24,47 @@ void MyGame::initScene()
 
 
 	//KS Changed to Array and vector that can be iterated through
-	string modelPath [] {"/Earth.fbx", "/Earth.fbx" };
-	string vsFilename[] {"/parallaxMappingVS2.glsl" ,"/parallaxMappingVS2.glsl" };
-	string fsFilename[] {"/parallaxMappingFS2.glsl" ,"/parallaxMappingFS2.glsl" };
-	string diffTextureFileName[]{"/bricks_diff.jpg","/bricks_diff.jpg" };
-	string specTextureFilename[]{"/bricks_spec.png","/bricks_spec.png" };
-	string normTextureFilename[]{"/bricks_norm.png","/bricks_norm.png" };
-	string heightTextureFilename[]{"/bricks_height.png","/bricks_height.png" };
+	string modelPath [] {"/Earth.fbx", "/Earth.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx" };
+	string vsFilename[] {"/parallaxMappingVS2.glsl" ,"/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl" };
+	string fsFilename[] {"/parallaxMappingFS2.glsl" ,"/parallaxMappingFS2.glsl", "/parallaxMappingFS2.glsl", "/parallaxMappingFS2.glsl", "/parallaxMappingFS2.glsl", "/parallaxMappingFS2.glsl" };
+	string diffTextureFileName[]{"/bricks_diff.jpg","/TBall_Diff.jpg", "/floor.jpg", "/bricks_diff.jpg", "/bricks_diff.jpg", "/bricks_diff.jpg" };
+	string specTextureFilename[]{"/bricks_spec.png","/TBall_Spec.png", "/Floor_Spec.png", "/bricks_spec.png", "/bricks_spec.png", "/bricks_spec.png" };
+	string normTextureFilename[]{"/bricks_norm.png","/TBall_Norm.png", "/Floor_N.png", "/bricks_norm.png", "/bricks_norm.png", "/bricks_norm.png" };
+	string heightTextureFilename[]{"/bricks_height.png","/TBall_Height.png", "/Floor_H.png", "/bricks_height.png", "/bricks_height.png", "/bricks_height.png" };
+
+	//string vsFilenameContainter[] { light, lightex, normal, parallax} MRKS Later optimisation, save objects and call via define
+
+	
+
 	vec3 scale[]
 	{
 		vec3(5.0f, 5.0f, 5.0f),
-		vec3(5.0f, 5.0f, 5.0f)
+		vec3(5.0f, 5.0f, 5.0f),
+		vec3(100.0f, 1.0f, 100.0f), //MR Floor
+		vec3(100.0f, 100.0f, 1.0f), //MR Back wall
+		vec3(100.0f, 100.0f, 1.0f), //MR left wall
+		vec3(100.0f, 100.0f, 1.0f) //MR Right wall
 	};
 	vec3 position[]
 	{
 		vec3(25.0f, 5.0f, 5.0f),
-		vec3(25.0f, 20.0f, 5.0f)
+		vec3(0.0f, 20.0f, 50.0f),
+		vec3(0.0f, 0.0f, 0.0f), //MR Floor
+		vec3(0.0f, 0.0f, 0.0f), //MR Back Wall
+		vec3(-50.0f, 0.0f, 50.0f), //MR left wall
+		vec3(50.0f, 0.0f, 50.0f) //MR right wall
+
+
 	};
 	vec3 rotation[]
 	{
 		vec3(0.0f, 0.0f, 0.0f),
-		vec3(0.0f, 0.0f, 0.0f)
+		vec3(0.0f, 0.0f, 0.0f),
+		vec3(0.0f, 0.0f, 0.0f), //MR Floor
+		vec3(0.0f, 0.0f, 0.0f), //MR Back Wall
+		vec3(0.0f, radians(90.0f), 0.0f), //MR left wall
+		vec3(0.0f, radians(90.0f), 0.0f)
+
 	};
 
 
@@ -53,6 +73,7 @@ void MyGame::initScene()
 	for (int i = 0; i < arrayLength; i++)
 	{
 		m_TestGO = shared_ptr<GameObject>(loadModelFromFile(modelFP+modelPath[i]));
+
 		m_TestGO->loadShadersAndTextures(shaderFP+vsFilename[i], shaderFP+fsFilename[i], textureFP+diffTextureFileName[i], textureFP+specTextureFilename[i], textureFP+normTextureFilename[i], textureFP+heightTextureFilename[i]);
 		//m_TestGO->setTransform(vec3(5.0f, 5.0f, 5.0f), vec3(i*25.0f, i*10.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f));
 		//m_TestGO->addChild(m_TestGO);
@@ -63,7 +84,7 @@ void MyGame::initScene()
 
 
 
-	m_CameraPosition = vec3(0.0f, 0.0f, 100.0f);
+	m_CameraPosition = vec3(0.0f, 50.0f, 150.0f);
 
 	m_Light = shared_ptr<Light>(new Light());
 	m_Light->DiffuseColour = vec4(1.0f, 1.0f, 1.0f, 1.0f);

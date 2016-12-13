@@ -82,12 +82,14 @@ void Renderer::onDestroy()
 	glDeleteProgram(m_ShaderProgram);
 }
 
-void Renderer::onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMatrix, int numberOfIndices)
+void Renderer::onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMatrix, int numberOfIndices, GLuint VBO, GLuint EBO)
 {
 
 	GLuint shaderProgram = m_ShaderProgram;
 	glUseProgram(shaderProgram);
 	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
 	GLint MVPLocation = glGetUniformLocation(shaderProgram, "MVP");
 	mat4 MVP = projection*view*modelMatrix;
