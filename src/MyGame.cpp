@@ -24,13 +24,13 @@ void MyGame::initScene()
 
 
 	//KS Changed to Array and vector that can be iterated through
-	string modelPath [] {"/Earth.fbx", "/Earth.fbx" };
-	string vsFilename[] {"/parallaxMappingVS2.glsl" ,"/parallaxMappingVS2.glsl" };
-	string fsFilename[] {"/parallaxMappingFS2.glsl" ,"/parallaxMappingFS2.glsl" };
-	string diffTextureFileName[]{"/bricks_diff.jpg","/bricks_diff.jpg" };
-	string specTextureFilename[]{"/bricks_spec.png","/bricks_spec.png" };
-	string normTextureFilename[]{"/bricks_norm.png","/bricks_norm.png" };
-	string heightTextureFilename[]{"/bricks_height.png","/bricks_height.png" };
+	string modelPath [] {"/Earth.fbx", "/Earth.fbx", "/unitCube.fbx" };
+	string vsFilename[] {"/parallaxMappingVS2.glsl" ,"/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl" };
+	string fsFilename[]{ "/parallaxMappingFS2.glsl" ,"/parallaxMappingFS2.glsl", "/parallaxMappingFS2.glsl" };
+	string diffTextureFileName[]{"/bricks_diff.jpg","/bricks_diff.jpg", "/bricks_diff.jpg"  };
+	string specTextureFilename[]{"/bricks_spec.png","/bricks_spec.png", "/bricks_spec.png" };
+	string normTextureFilename[]{"/bricks_norm.png","/bricks_norm.png", "/bricks_norm.png" };
+	string heightTextureFilename[]{"/bricks_height.png","/bricks_height.png", "/bricks_height.png" };
 
 	int arrayLength = sizeof(modelPath) / sizeof(modelPath[0]);
 
@@ -40,6 +40,12 @@ void MyGame::initScene()
 		m_TestGO->loadShadersAndTextures(shaderFP+vsFilename[i], shaderFP+fsFilename[i], textureFP+diffTextureFileName[i], textureFP+specTextureFilename[i], textureFP+normTextureFilename[i], textureFP+heightTextureFilename[i]);
 		m_TestGO->setTransform(vec3(5.0f, 5.0f, 5.0f), vec3(i*25.0f, i*10.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f));
 		//m_TestGO->addChild(m_TestGO);
+		/*
+		if (i == 2)
+		{
+			m_TestGO->setTransform(vec3(5.0f, 5.0f, 5.0f), vec3(i*25.0f, i*10.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f));
+		}
+		*/
 		GOList.push_back(m_TestGO);
 	}
 

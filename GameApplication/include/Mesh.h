@@ -19,6 +19,16 @@ public:
 		return m_VAO;
 	}
 
+	GLuint getVBO()
+	{
+		return m_VBO;
+	}
+
+	GLuint getEBO()
+	{
+		return m_EBO;
+	}
+
 	void onDestroy();
 
 	int getNumberOfIndices()
