@@ -31,6 +31,22 @@ void MyGame::initScene()
 	string specTextureFilename[]{"/bricks_spec.png","/bricks_spec.png" };
 	string normTextureFilename[]{"/bricks_norm.png","/bricks_norm.png" };
 	string heightTextureFilename[]{"/bricks_height.png","/bricks_height.png" };
+	vec3 scale[]
+	{
+		vec3(5.0f, 5.0f, 5.0f),
+		vec3(5.0f, 5.0f, 5.0f)
+	};
+	vec3 position[]
+	{
+		vec3(25.0f, 5.0f, 5.0f),
+		vec3(25.0f, 20.0f, 5.0f)
+	};
+	vec3 rotation[]
+	{
+		vec3(0.0f, 0.0f, 0.0f),
+		vec3(0.0f, 0.0f, 0.0f)
+	};
+
 
 	int arrayLength = sizeof(modelPath) / sizeof(modelPath[0]);
 
@@ -38,8 +54,9 @@ void MyGame::initScene()
 	{
 		m_TestGO = shared_ptr<GameObject>(loadModelFromFile(modelFP+modelPath[i]));
 		m_TestGO->loadShadersAndTextures(shaderFP+vsFilename[i], shaderFP+fsFilename[i], textureFP+diffTextureFileName[i], textureFP+specTextureFilename[i], textureFP+normTextureFilename[i], textureFP+heightTextureFilename[i]);
-		m_TestGO->setTransform(vec3(5.0f, 5.0f, 5.0f), vec3(i*25.0f, i*10.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f));
+		//m_TestGO->setTransform(vec3(5.0f, 5.0f, 5.0f), vec3(i*25.0f, i*10.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f));
 		//m_TestGO->addChild(m_TestGO);
+		m_TestGO->setTransform(scale[i],position[i],rotation[i]);
 		GOList.push_back(m_TestGO);
 	}
 
