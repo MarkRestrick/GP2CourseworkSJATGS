@@ -28,6 +28,9 @@
     <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\BoxCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\CameraController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\Common.h">
@@ -64,6 +67,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\BoxCollider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\CameraController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

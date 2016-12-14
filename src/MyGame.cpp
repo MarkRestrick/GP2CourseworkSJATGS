@@ -90,13 +90,8 @@ void MyGame::initScene()
 	GOList.push_back(m_TestGO);
 	*/
 
+	m_Camera = shared_ptr<CameraController>(new CameraController);
 
-	m_CameraRotation = vec3(0.0f, radians(270.0f), 0.0f);
-	m_CameraPosition = vec3(0.0f, 25.0f, 150.0f);
-
-	//m_CameraPosition = vec3(0.0f, 0.0f, 15.0f);
-
-	m_CameraLookAtPosition = vec3(cos(m_CameraRotation.y), 0, sin(m_CameraRotation.y));
 
 	m_Light = shared_ptr<Light>(new Light());
 	m_Light->DiffuseColour = vec4(1.0f, 1.0f, 1.0f, 1.0f);
@@ -109,16 +104,6 @@ void MyGame::initScene()
 void MyGame::onKeyDown(SDL_Keycode keyCode)
 {
 
-	
-	if (keyCode == SDLK_a)
-	{
-		m_CameraPosition += (vec3(-1.0f, 0.0f, 0.0f));
-	}
-	else if (keyCode == SDLK_d)
-	{
-		m_CameraPosition += (vec3(1.0f, 0.0f, 0.0f));
-	}
-
 	if (keyCode == SDLK_w)
 	{
 		if (!m_DebugMode)
@@ -126,32 +111,29 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 			bool temp = false;
 			for each (shared_ptr<GameObject> gameObject in GOList)
 			{
-				if (gameObject->checkCollision(m_CameraPosition + vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)))))
+				if (gameObject->checkCollision(m_Camera->collisionCheck(true)))
 				{
 					temp = true;
 				}
 			}
-
 			if (!temp)
 			{
-				m_CameraPosition += vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)));
+				m_Camera->moveForward();
 			}
-
 		}
 		else
-		{ 
-			m_CameraPosition += vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)));
+		{
+			m_Camera->moveForward();
 		}
-
 	}
-	else if (keyCode== SDLK_s)
+	else if (keyCode == SDLK_s)
 	{
 		if (!m_DebugMode)
 		{
 			bool temp = false;
 			for each (shared_ptr<GameObject> gameObject in GOList)
 			{
-				if (gameObject->checkCollision(m_CameraPosition - vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)))))
+				if (gameObject->checkCollision(m_Camera->collisionCheck(false)))
 				{
 					temp = true;
 				}
@@ -159,29 +141,21 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 
 			if (!temp)
 			{
-				m_CameraPosition -= vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)));
+				m_Camera->moveBackward();
 			}
 		}
 		else
 		{
-			m_CameraPosition -= vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)));
+			m_Camera->moveBackward();
 		}
 	}
 	if (keyCode == SDLK_e)
 	{
-		m_CameraRotation += vec3(0.0f, radians(3.0f), 0.0f);
-		if (m_CameraRotation.y > 3.141592654f * 2)
-		{
-			m_CameraRotation += vec3(0.0f, -radians(360.0f), 0.0f);
-		}
+		m_Camera->rotateCamera(3.0f);
 	}
 	else if (keyCode == SDLK_q)
 	{
-		m_CameraRotation += vec3(0.0f, radians(-3.0f), 0.0f);
-		if (m_CameraRotation.y < 0)
-		{
-			m_CameraRotation += vec3(0.0f, radians(360.0f), 0.0f);
-		}
+		m_Camera->rotateCamera(-3.0f);
 	}
 
 	if (keyCode == SDLK_p)
@@ -195,8 +169,6 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 			m_DebugMode = true;
 		}
 	}
-
-	m_CameraLookAtPosition = vec3(cos(m_CameraRotation.y), 0, sin(m_CameraRotation.y));
 }
 
 
@@ -224,7 +196,7 @@ void MyGame::update()
 	GameApplication::update();
 
 	m_ProjMatrix = perspective(radians(45.0f), (float)m_WindowWidth / (float)m_WindowHeight, 0.1f, 1000.0f);
-	m_ViewMatrix = lookAt(m_CameraPosition, m_CameraPosition + m_CameraLookAtPosition, vec3(0.0f, 1.0f, 0.0f));
+	m_ViewMatrix = lookAt(m_Camera->getCameraPosition(), m_Camera->getLookAtPosition(), vec3(0.0f, 1.0f, 0.0f));
 	
 	//KS loop through vertor to update all ojs
 	for each (shared_ptr<GameObject> temp in GOList)
@@ -256,7 +228,7 @@ void MyGame::render()
 		glUniform3fv(lightDirectionLocation, 1, value_ptr(m_Light->Direction));
 
 		GLint cameraPositionLocation = glGetUniformLocation(currentShader, "cameraPos");
-		glUniform3fv(cameraPositionLocation, 1, value_ptr(m_CameraPosition));
+		glUniform3fv(cameraPositionLocation, 1, value_ptr(m_Camera->getCameraPosition()));
 
 		temp->onRender(m_ViewMatrix, m_ProjMatrix);
 
