@@ -38,6 +38,8 @@ bool depthFrameBuffer::create()
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+
 	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 	if (status != GL_FRAMEBUFFER_COMPLETE)
 	{

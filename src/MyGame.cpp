@@ -103,6 +103,8 @@ void MyGame::initScene()
 	//m_PostBuffer = shared_ptr<PostProcessBuffer>(new PostProcessBuffer());
 	//m_PostBuffer->create(m_WindowWidth, m_WindowHeight);
 	
+	
+
 	m_depthBuffer = shared_ptr<depthFrameBuffer>(new depthFrameBuffer());
 	m_depthBuffer->create();
 
@@ -154,7 +156,7 @@ void MyGame::destroyScene()
 
 	m_PostEffect->destroy();
 	m_ScreenAlignedQuad->destroy();
-	m_PostBuffer->destroy();
+	//m_PostBuffer->destroy();
 
 	//KS loop through vertor to delect all ojs
 	for each (shared_ptr<GameObject> temp in GOList)
@@ -222,24 +224,27 @@ void MyGame::render()
 		//GOList.pop_back();
 	}
 
-
-	glm::mat4 lightProjection, lightView;
+	
+	glm::mat4 lightView;
 	glm::mat4 lightSpaceMatrix;
+
 	GLfloat near_plane = 1.0f, far_plane = 7.5f;
-	lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-	lightView = glm::lookAt(glm::vec3(0.0, 50.0, 0.0), glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+	glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+	lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),
+							glm::vec3(0.0f, 0.0f, 0.0f), 
+							glm::vec3(0.0f, 1.0f, 0.0f));
 	lightSpaceMatrix = lightProjection * lightView;
 
 	GLuint currentShader = m_PostEffect->getShaderProgram();
 	glUniformMatrix4fv(glGetUniformLocation(currentShader, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
-
+	
 
 	m_depthBuffer->unbind();
 
 	m_PostEffect->bind();
 	//GLuint currentShader = m_PostEffect->getShaderProgram();
 
-	//GLint textureLocation = glGetUniformLocation(currentShader, "texture0");
+	//GLint textureLocation = glGetUniformLocation(currentShader, "depthMap");
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_depthBuffer->GetTexture());
 	//glUniform1i(textureLocation, 0);
@@ -247,4 +252,5 @@ void MyGame::render()
 	m_ScreenAlignedQuad->render();
 	m_depthBuffer->unbind();
 	//Do above again but with out the object for loop
+	
 }
