@@ -6,5 +6,4 @@
 
 GameObject * loadModelFromFile(const string& filename);
 
-
 #endif

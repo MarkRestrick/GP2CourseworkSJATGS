@@ -8,29 +8,48 @@ BoxCollider::~BoxCollider()
 {
 }
 
-void BoxCollider::setTransform(vec3 position, vec3 scale)
+void BoxCollider::setCollider(vec3 high, vec3 low)
 {
-	m_Position = position;
-	m_ColliderSize = scale;
+	m_High = high;
+	m_Low = low;
+}
+
+void BoxCollider::scaleCollider()
+{
+	m_High.x *= m_Scale.x;
+	m_Low.x *= m_Scale.x;
+	m_High.y *= m_Scale.y;
+	m_Low.y *= m_Scale.y;
+	m_High.z *= m_Scale.z;
+	m_Low.z *= m_Scale.z;
+
+	cout << m_Position.x + m_High.x << " " << m_Position.x + m_Low.x << " " << m_Position.y + m_High.y << " " << m_Position.y + m_Low.y << " " << m_Position.z + m_High.z << " " << m_Position.z + m_Low.z << "\n";
 }
 
 bool BoxCollider::checkCollision(vec3 position)
 {
+
+	if (!scaled)
+	{
+		scaleCollider();
+		scaled = true;
+	}
+
 	m_xCollision = false;
 	m_yCollision = false;
 	m_zCollision = false;
 
-	if (position.x < m_Position.x + m_ColliderSize.x && position.x > m_Position.x - m_ColliderSize.x)
+	if (position.x < m_Position.x + m_High.x && position.x >  m_Position.x + m_Low.x)
 	{
 		m_xCollision = true;
 	}
 
-	if (position.y < m_Position.y + m_ColliderSize.y / 2 && position.y > m_Position.y - m_ColliderSize.y / 2)
+	if (position.y <  m_Position.y + m_High.y && position.y >  m_Position.y + m_Low.y)
 	{
 		m_yCollision = true;
 	}
 
-	if (position.z < m_Position.z + m_ColliderSize.z / 2 && position.z > m_Position.z - m_ColliderSize.z / 2)
+	if (position.z <  m_Position.z + m_High.z && position.z >  m_Position.z + m_Low.z)
 	{
 		m_zCollision = true;
 	}
@@ -41,5 +60,17 @@ bool BoxCollider::checkCollision(vec3 position)
 	}
 
 	return false;
+}
+
+void BoxCollider::onRender()
+{
+	/*
+	glLineWidth(1000.0f);
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glBegin(GL_LINES);
+	glVertex3f(m_Position.x + m_HX, m_Position.y + m_HY, m_Position.z + m_HZ);
+	glVertex3f(m_Position.y + m_LX, m_Position.y - m_LY, m_Position.z - m_LZ);
+	glEnd();
+	*/
 }
 

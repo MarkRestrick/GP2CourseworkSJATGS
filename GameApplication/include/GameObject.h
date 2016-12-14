@@ -43,6 +43,8 @@ public:
 	GLuint getShaderProgram();
 
 	bool checkCollision(vec3 position);
+
+	void getColliderSize(vec3 high, vec3 low);
 private:
 	GameObject * m_pParent;
 	vector<shared_ptr<GameObject> > m_ChildrenGameObjects;

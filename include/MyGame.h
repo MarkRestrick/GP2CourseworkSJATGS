@@ -31,6 +31,6 @@ private:
 	vec3 m_CameraLookAtPosition;
 	vec3 m_CameraRotation;
 	
-
+	bool m_DebugMode = false;
 };
 #endif

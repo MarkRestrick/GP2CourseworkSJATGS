@@ -34,25 +34,24 @@ void MyGame::initScene()
 
 	//string vsFilenameContainter[] { light, lightex, normal, parallax} MRKS Later optimisation, save objects and call via define
 
-	
 
 	vec3 scale[]
 	{
 		vec3(5.0f, 5.0f, 5.0f),
 		vec3(5.0f, 5.0f, 5.0f),
 		vec3(100.0f, 1.0f, 100.0f), //MR Floor
-		vec3(100.0f, 100.0f, 1.0f), //MR Back wall
-		vec3(100.0f, 100.0f, 1.0f), //MR left wall
-		vec3(100.0f, 100.0f, 1.0f) //MR Right wall
+		vec3(100.0f, 50.0f, 1.0f), //MR Back wall
+		vec3(1.0f, 50.0f, 100.0f), //MR left wall
+		vec3(1.0f, 50.0f, 100.0f) //MR Right wall
 	};
 	vec3 position[]
 	{
 		vec3(25.0f, 5.0f, 5.0f),
 		vec3(0.0f, 20.0f, 50.0f),
 		vec3(0.0f, 0.0f, 0.0f), //MR Floor
-		vec3(0.0f, 0.0f, 0.0f), //MR Back Wall
-		vec3(-50.0f, 0.0f, 50.0f), //MR left wall
-		vec3(50.0f, 0.0f, 50.0f) //MR right wall
+		vec3(0.0f, 25.0f, 0.0f), //MR Back Wall
+		vec3(-50.0f, 25.0f, 0.0f), //MR left wall
+		vec3(50.0f, 25.0f, 0.0f) //MR right wall
 
 
 	};
@@ -62,8 +61,8 @@ void MyGame::initScene()
 		vec3(0.0f, 0.0f, 0.0f),
 		vec3(0.0f, 0.0f, 0.0f), //MR Floor
 		vec3(0.0f, 0.0f, 0.0f), //MR Back Wall
-		vec3(0.0f, radians(90.0f), 0.0f), //MR left wall
-		vec3(0.0f, radians(90.0f), 0.0f)
+		vec3(0.0f, 0.0f, 0.0f), //MR left wall
+		vec3(0.0f, 0.0f, 0.0f)
 
 	};
 
@@ -81,8 +80,22 @@ void MyGame::initScene()
 		GOList.push_back(m_TestGO);
 	}
 
-	m_CameraRotation = vec3(0.0f, 0.0f, 0.0f);
+	/*
+	m_TestGO = shared_ptr<GameObject>(loadModelFromFile(modelFP + modelPath[2]));
+
+	m_TestGO->loadShadersAndTextures(shaderFP + vsFilename[2], shaderFP + fsFilename[2], textureFP + diffTextureFileName[2], textureFP + specTextureFilename[2], textureFP + normTextureFilename[2], textureFP + heightTextureFilename[2]);
+	//m_TestGO->setTransform(vec3(5.0f, 5.0f, 5.0f), vec3(i*25.0f, i*10.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f));
+	//m_TestGO->addChild(m_TestGO);
+	m_TestGO->setTransform(vec3 (10.0f, 10.0f, 10.0f), vec3(0.0f, 0.0f, -10.0f), vec3(0.0f, 0.0f, 0.0f));
+	GOList.push_back(m_TestGO);
+	*/
+
+
+	m_CameraRotation = vec3(0.0f, radians(270.0f), 0.0f);
 	m_CameraPosition = vec3(0.0f, 25.0f, 150.0f);
+
+	//m_CameraPosition = vec3(0.0f, 0.0f, 15.0f);
+
 	m_CameraLookAtPosition = vec3(cos(m_CameraRotation.y), 0, sin(m_CameraRotation.y));
 
 	m_Light = shared_ptr<Light>(new Light());
@@ -96,7 +109,7 @@ void MyGame::initScene()
 void MyGame::onKeyDown(SDL_Keycode keyCode)
 {
 
-	/*
+	
 	if (keyCode == SDLK_a)
 	{
 		m_CameraPosition += (vec3(-1.0f, 0.0f, 0.0f));
@@ -105,27 +118,54 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 	{
 		m_CameraPosition += (vec3(1.0f, 0.0f, 0.0f));
 	}
-	*/
 
-	if (keyCode== SDLK_w)
+	if (keyCode == SDLK_w)
 	{
-		bool temp = false;
-		for each (shared_ptr<GameObject> gameObject in GOList)
+		if (!m_DebugMode)
 		{
-			if (gameObject->checkCollision(m_CameraPosition + vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)))))
+			bool temp = false;
+			for each (shared_ptr<GameObject> gameObject in GOList)
 			{
-				temp = true;
+				if (gameObject->checkCollision(m_CameraPosition + vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)))))
+				{
+					temp = true;
+				}
 			}
-		}
 
-		if (!temp)
-		{
+			if (!temp)
+			{
+				m_CameraPosition += vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)));
+			}
+
+		}
+		else
+		{ 
 			m_CameraPosition += vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)));
 		}
+
 	}
 	else if (keyCode== SDLK_s)
 	{
-		m_CameraPosition -= vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)));
+		if (!m_DebugMode)
+		{
+			bool temp = false;
+			for each (shared_ptr<GameObject> gameObject in GOList)
+			{
+				if (gameObject->checkCollision(m_CameraPosition - vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)))))
+				{
+					temp = true;
+				}
+			}
+
+			if (!temp)
+			{
+				m_CameraPosition -= vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)));
+			}
+		}
+		else
+		{
+			m_CameraPosition -= vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)));
+		}
 	}
 	if (keyCode == SDLK_e)
 	{
@@ -141,6 +181,18 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 		if (m_CameraRotation.y < 0)
 		{
 			m_CameraRotation += vec3(0.0f, radians(360.0f), 0.0f);
+		}
+	}
+
+	if (keyCode == SDLK_p)
+	{
+		if (m_DebugMode)
+		{
+			m_DebugMode = false;
+		}
+		else
+		{
+			m_DebugMode = true;
 		}
 	}
 

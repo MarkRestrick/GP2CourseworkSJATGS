@@ -27,6 +27,7 @@ void GameObject::onUpdate()
 	// And this is where we proved we're not retarded m_GameObjectTransform.TransformUpdate();
 
 	m_GameObjectCollider.setTransform(m_GameObjectTransform.getPosition(), m_GameObjectTransform.getScale());
+	m_GameObjectCollider.onRender();
 }
 
 void GameObject::onRender(mat4& view, mat4& projection)
@@ -93,5 +94,11 @@ GLuint GameObject::getShaderProgram()
 bool GameObject::checkCollision(vec3 position)
 {
 	return m_GameObjectCollider.checkCollision(position);
+}
+
+void GameObject::getColliderSize(vec3 high, vec3 low)
+{
+	m_GameObjectCollider.setTransform(m_GameObjectTransform.getPosition(), m_GameObjectTransform.getScale());
+	m_GameObjectCollider.setCollider(high, low);
 }
 

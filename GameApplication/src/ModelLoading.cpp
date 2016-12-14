@@ -19,6 +19,13 @@ GameObject * loadModelFromFile(const string & filename)
 		vector<int> indices;
 		vector<Vertex> verts;
 
+		float m_HX = mesh->mVertices[0].x;
+		float m_LX = mesh->mVertices[0].x;
+		float m_HY = mesh->mVertices[0].y;
+		float m_LY = mesh->mVertices[0].y;
+		float m_HZ = mesh->mVertices[0].z;
+		float m_LZ = mesh->mVertices[0].z;
+
 		for (int f = 0; f < mesh->mNumFaces; f++)
 		{
 			const aiFace * face = &mesh->mFaces[f];
@@ -32,6 +39,22 @@ GameObject * loadModelFromFile(const string & filename)
 		for (int v = 0; v < mesh->mNumVertices; v++)
 		{
 			aiVector3D position = mesh->mVertices[v];
+			
+			if (position.x > m_HX)
+				m_HX = position.x;
+			if (position.y > m_HY)
+				m_HY = position.y;
+			if (position.z > m_HZ)
+				m_HZ = position.z;
+
+			if (position.x < m_LX)
+				m_LX = position.x;
+			if (position.y < m_LY)
+				m_LY = position.y;
+			if (position.z < m_LZ)
+				m_LZ = position.z;
+
+
 			aiVector3D normal = mesh->mNormals[v];
 
 			for (int i = 0; i < mesh->GetNumUVChannels(); i++)	
@@ -60,7 +83,11 @@ GameObject * loadModelFromFile(const string & filename)
 			verts.push_back(ourV);
 		}
 
+		vec3 highestCorner = vec3(m_HX, m_HY, m_HZ);
+		vec3 lowestCorner = vec3(m_LX, m_LY, m_LZ);
+
 		gameObject->copyVertexData(&verts[0], verts.size(), &indices[0], indices.size());
+		gameObject->getColliderSize(highestCorner, lowestCorner);
 	}
 	else
 	{
