@@ -9,7 +9,7 @@ public:
 	PostProcessingEffect();
 	virtual ~PostProcessingEffect();
 
-	bool loadShader(const string& FSFilename);
+	bool loadShader(const string & VSFilename,const string& FSFilename);
 
 	GLuint getShaderProgram()
 	{

@@ -23,9 +23,9 @@ PostProcessingEffect::~PostProcessingEffect()
 {
 }
 
-bool PostProcessingEffect::loadShader(const string & FSFilename)
+bool PostProcessingEffect::loadShader(const string & VSFilename,const string & FSFilename)
 {
-	GLuint vertexShaderProgram = loadShaderFromMemory(postProcessingVSShaderCode.c_str(), VERTEX_SHADER);
+	GLuint vertexShaderProgram = loadShaderFromFile(VSFilename, VERTEX_SHADER);
 	GLuint fragmentShaderProgram = loadShaderFromFile(FSFilename, FRAGMENT_SHADER);
 
 	m_ShaderProgram = glCreateProgram();

@@ -22,6 +22,7 @@ protected:
 	shared_ptr<PostProcessBuffer> m_PostBuffer;
 	shared_ptr<ScreenAlignedQuad> m_ScreenAlignedQuad;
 	shared_ptr<PostProcessingEffect> m_PostEffect;
+	shared_ptr<depthFrameBuffer> m_depthBuffer;
 
 private:
 	//matrices
@@ -30,14 +31,13 @@ private:
 
 	shared_ptr<GameObject> m_TestGO;
 
-	vector<shared_ptr<GameObject> > GOList;//KS
+	vector<shared_ptr<GameObject> > GOList;
 	
 	shared_ptr<Light> m_Light;
 	vec4 m_AmbientLightColour;
 
 	vec3 m_CameraPosition;
 
-	
 
 };
 #endif

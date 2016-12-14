@@ -8,9 +8,13 @@ const std::string SHADER_PATH = "/shaders";
 const std::string TEXTURE_PATH = "/textures";
 const std::string MODEL_PATH = "/models";
 
+
+
+
 MyGame::MyGame()
 {
 	//m_TestGO = nullptr;
+
 }
 
 MyGame::~MyGame()
@@ -96,19 +100,32 @@ void MyGame::initScene()
 	m_AmbientLightColour = vec4(0.5f, 0.5f, 0.5f, 1.0f);
 
 
-	m_PostBuffer = shared_ptr<PostProcessBuffer>(new PostProcessBuffer());
-	m_PostBuffer->create(m_WindowWidth, m_WindowHeight);
+	//m_PostBuffer = shared_ptr<PostProcessBuffer>(new PostProcessBuffer());
+	//m_PostBuffer->create(m_WindowWidth, m_WindowHeight);
+	
+	m_depthBuffer = shared_ptr<depthFrameBuffer>(new depthFrameBuffer());
+	m_depthBuffer->create();
 
 	m_ScreenAlignedQuad = shared_ptr<ScreenAlignedQuad>(new ScreenAlignedQuad());
 	m_ScreenAlignedQuad->create();
 
-	const std::string ASSET_PATH = "assets";
-	const std::string SHADER_PATH = "/shaders";
-	string fsPostFilename = ASSET_PATH + SHADER_PATH + "/colourFilterFS.glsl";
+	//string vsPostFilename = ASSET_PATH + SHADER_PATH + "/postProcessingVS.glsl";
+	string vsPostFilename = ASSET_PATH + SHADER_PATH + "/simpleDepthShaderVS.glsl";
+
+	
+		//string fsPostFilename = ASSET_PATH + SHADER_PATH + "/colourFilterFS.glsl";
+		//string fsPostFilename = ASSET_PATH + SHADER_PATH + "/sharpenFS.glsl";
+		//string fsPostFilename = ASSET_PATH + SHADER_PATH + "/blurFS.glsl";
+		  string fsPostFilename = ASSET_PATH + SHADER_PATH + "/simpleDepthShaderFS.glsl";
 
 	m_PostEffect = shared_ptr<PostProcessingEffect>(new PostProcessingEffect());
-	m_PostEffect->loadShader(fsPostFilename);
+	m_PostEffect->loadShader(vsPostFilename,fsPostFilename);
 	
+	
+
+	
+
+
 }
 
 
@@ -173,7 +190,7 @@ void MyGame::update()
 void MyGame::render()
 {
 
-	m_PostBuffer->bind();
+	m_depthBuffer->bind();
 
 	GameApplication::render();
 	
@@ -205,17 +222,29 @@ void MyGame::render()
 		//GOList.pop_back();
 	}
 
-	m_PostBuffer->unbind();
+
+	glm::mat4 lightProjection, lightView;
+	glm::mat4 lightSpaceMatrix;
+	GLfloat near_plane = 1.0f, far_plane = 7.5f;
+	lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+	lightView = glm::lookAt(glm::vec3(0.0, 50.0, 0.0), glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
+	lightSpaceMatrix = lightProjection * lightView;
+
+	GLuint currentShader = m_PostEffect->getShaderProgram();
+	glUniformMatrix4fv(glGetUniformLocation(currentShader, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+
+
+	m_depthBuffer->unbind();
 
 	m_PostEffect->bind();
-	GLuint currentShader = m_PostEffect->getShaderProgram();
+	//GLuint currentShader = m_PostEffect->getShaderProgram();
 
-	GLint textureLocation = glGetUniformLocation(currentShader, "texture0");
+	//GLint textureLocation = glGetUniformLocation(currentShader, "texture0");
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, m_PostBuffer->GetTexture());
-	glUniform1i(textureLocation, 0);
+	glBindTexture(GL_TEXTURE_2D, m_depthBuffer->GetTexture());
+	//glUniform1i(textureLocation, 0);
 
 	m_ScreenAlignedQuad->render();
-	m_PostBuffer->unbind();
+	m_depthBuffer->unbind();
 	//Do above again but with out the object for loop
 }
