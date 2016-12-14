@@ -1,4 +1,4 @@
-2 lines (8 sloc)  150 Bytes
+
 #version 410
 
 out vec4 FragColor;

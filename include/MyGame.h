@@ -16,12 +16,19 @@ public:
 
 	void onKeyDown(SDL_Keycode keyCode);
 
+	void addPostProcessingEffect(shared_ptr<PostProcess> post)
+	{
+		m_PostProcessChain.push_back(post);
+	}
+
 protected:
 
+	unique_ptr<PostProcess> m_PassThroughPostProcess;
+	unique_ptr<PostProcess> m_PassThroughPostProcess2;
+	vector < shared_ptr<PostProcess> > m_PostProcessChain;
 	//Post Processing
-	shared_ptr<PostProcessBuffer> m_PostBuffer;
-	shared_ptr<ScreenAlignedQuad> m_ScreenAlignedQuad;
-	shared_ptr<PostProcessingEffect> m_PostEffect;
+
+	
 
 private:
 	//matrices
