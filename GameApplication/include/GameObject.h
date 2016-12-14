@@ -10,6 +10,7 @@
 #include <iostream>
 #include "Renderer.h"
 #include "Mesh.h"
+#include "BoxCollider.h"
 
 using namespace std;
 
@@ -40,6 +41,8 @@ public:
 	void rotate(const vec3& delta);
 	void copyVertexData(Vertex *pVertex, int numberOfVertices, int *pIndices, int numberOfIndices);
 	GLuint getShaderProgram();
+
+	bool checkCollision(vec3 position);
 private:
 	GameObject * m_pParent;
 	vector<shared_ptr<GameObject> > m_ChildrenGameObjects;
@@ -50,6 +53,7 @@ private:
 	Transform m_GameObjectTransform;
 	Renderer m_GameObjectRenderer;
 	Mesh m_GameObjectMesh;
+	BoxCollider m_GameObjectCollider;
 };
 
 #endif

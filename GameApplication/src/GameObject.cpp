@@ -25,6 +25,8 @@ void GameObject::onUpdate()
 		m_ModelMatrix *= m_pParent->getModelMatrix();
 	}
 	// And this is where we proved we're not retarded m_GameObjectTransform.TransformUpdate();
+
+	m_GameObjectCollider.setTransform(m_GameObjectTransform.getPosition(), m_GameObjectTransform.getScale());
 }
 
 void GameObject::onRender(mat4& view, mat4& projection)
@@ -86,5 +88,10 @@ void GameObject::copyVertexData(Vertex * pVertex, int numberOfVertices, int * pI
 GLuint GameObject::getShaderProgram()
 {
 	return m_GameObjectRenderer.getShaderProgram();
+}
+
+bool GameObject::checkCollision(vec3 position)
+{
+	return m_GameObjectCollider.checkCollision(position);
 }
 

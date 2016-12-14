@@ -81,10 +81,9 @@ void MyGame::initScene()
 		GOList.push_back(m_TestGO);
 	}
 
-
-
-
-	m_CameraPosition = vec3(0.0f, 50.0f, 150.0f);
+	m_CameraRotation = vec3(0.0f, 0.0f, 0.0f);
+	m_CameraPosition = vec3(0.0f, 25.0f, 150.0f);
+	m_CameraLookAtPosition = vec3(cos(m_CameraRotation.y), 0, sin(m_CameraRotation.y));
 
 	m_Light = shared_ptr<Light>(new Light());
 	m_Light->DiffuseColour = vec4(1.0f, 1.0f, 1.0f, 1.0f);
@@ -96,21 +95,56 @@ void MyGame::initScene()
 
 void MyGame::onKeyDown(SDL_Keycode keyCode)
 {
+
+	/*
 	if (keyCode == SDLK_a)
 	{
-		m_TestGO->rotate(vec3(0.0f, 0.1f, 0.0f));
-	}else if (keyCode == SDLK_d)
-	{
-		m_TestGO->rotate(vec3(0.0f, -0.1f, 0.0f));
+		m_CameraPosition += (vec3(-1.0f, 0.0f, 0.0f));
 	}
-	if (keyCode==SDLK_w)
+	else if (keyCode == SDLK_d)
 	{
-		m_TestGO->rotate(vec3(0.1f,0.0f,0.0f));
+		m_CameraPosition += (vec3(1.0f, 0.0f, 0.0f));
 	}
-	else if (keyCode==SDLK_s)
+	*/
+
+	if (keyCode== SDLK_w)
 	{
-		m_TestGO->rotate(vec3(-0.1f,0.0f,0.0f));
+		bool temp = false;
+		for each (shared_ptr<GameObject> gameObject in GOList)
+		{
+			if (gameObject->checkCollision(m_CameraPosition + vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)))))
+			{
+				temp = true;
+			}
+		}
+
+		if (!temp)
+		{
+			m_CameraPosition += vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)));
+		}
 	}
+	else if (keyCode== SDLK_s)
+	{
+		m_CameraPosition -= vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)));
+	}
+	if (keyCode == SDLK_e)
+	{
+		m_CameraRotation += vec3(0.0f, radians(3.0f), 0.0f);
+		if (m_CameraRotation.y > 3.141592654f * 2)
+		{
+			m_CameraRotation += vec3(0.0f, -radians(360.0f), 0.0f);
+		}
+	}
+	else if (keyCode == SDLK_q)
+	{
+		m_CameraRotation += vec3(0.0f, radians(-3.0f), 0.0f);
+		if (m_CameraRotation.y < 0)
+		{
+			m_CameraRotation += vec3(0.0f, radians(360.0f), 0.0f);
+		}
+	}
+
+	m_CameraLookAtPosition = vec3(cos(m_CameraRotation.y), 0, sin(m_CameraRotation.y));
 }
 
 
@@ -138,7 +172,7 @@ void MyGame::update()
 	GameApplication::update();
 
 	m_ProjMatrix = perspective(radians(45.0f), (float)m_WindowWidth / (float)m_WindowHeight, 0.1f, 1000.0f);
-	m_ViewMatrix = lookAt(m_CameraPosition, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+	m_ViewMatrix = lookAt(m_CameraPosition, m_CameraPosition + m_CameraLookAtPosition, vec3(0.0f, 1.0f, 0.0f));
 	
 	//KS loop through vertor to update all ojs
 	for each (shared_ptr<GameObject> temp in GOList)

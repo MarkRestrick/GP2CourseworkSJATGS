@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\src\Log.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\src\clock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\src\ProgramOptions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\src\CommandLineParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\src\XMLOptionsParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\src\Timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include\Log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include\NonCopyable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include\clock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include\ProgramOptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include\CommandLineParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include\XMLOptionsParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include\Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include\Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{D940C288-672B-4098-B458-8798A8986FE5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{AF7E66BA-F618-4531-A056-ABC7AD36B16D}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
