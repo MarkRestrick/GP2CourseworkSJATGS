@@ -22,6 +22,8 @@ void MyGame::initScene()
 {	
 	//shared_ptr<GameObject> OjArray[]{m_TestGO};
 
+	m_Camera = shared_ptr<CameraController>(new CameraController);
+	//Camera
 
 	//KS Changed to Array and vector that can be iterated through
 	string modelPath [] {"/Earth.fbx", "/Earth.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx" };
@@ -41,20 +43,18 @@ void MyGame::initScene()
 		vec3(5.0f, 5.0f, 5.0f),
 		vec3(5.0f, 5.0f, 5.0f),
 		vec3(100.0f, 1.0f, 100.0f), //MR Floor
-		vec3(100.0f, 100.0f, 1.0f), //MR Back wall
-		vec3(100.0f, 100.0f, 1.0f), //MR left wall
-		vec3(100.0f, 100.0f, 1.0f),
-		vec3(1.0f, 1.0f, 1.0f)
+		vec3(100.0f, 50.0f, 1.0f), //MR Back wall
+		vec3(1.0f, 50.0f, 100.0f), //MR left wall
+		vec3(1.0f, 50.0f, 100.0f) //MR Right wall
 	};
 	vec3 position[]
 	{
 		vec3(25.0f, 5.0f, 5.0f),
 		vec3(0.0f, 20.0f, 50.0f),
 		vec3(0.0f, 0.0f, 0.0f), //MR Floor
-		vec3(0.0f, 0.0f, 0.0f), //MR Back Wall
-		vec3(-50.0f, 0.0f, 50.0f), //MR left wall
-		vec3(50.0f, 0.0f, 50.0f),
-		vec3(500.0f, 0.0f, 50.0f)
+		vec3(0.0f, 25.0f, 0.0f), //MR Back Wall
+		vec3(-50.0f, 25.0f, 0.0f), //MR left wall
+		vec3(50.0f, 25.0f, 0.0f) //MR right wall
 
 
 	};
@@ -64,9 +64,8 @@ void MyGame::initScene()
 		vec3(0.0f, 0.0f, 0.0f),
 		vec3(0.0f, 0.0f, 0.0f), //MR Floor
 		vec3(0.0f, 0.0f, 0.0f), //MR Back Wall
-		vec3(0.0f, radians(90.0f), 0.0f), //MR left wall
-		vec3(0.0f, radians(-90.0f), 0.0f),
-		vec3(0.0f, radians(-90.0f), 0.0f)
+		vec3(0.0f, 0.0f, 0.0f), //MR left wall
+		vec3(0.0f, 0.0f, 0.0f)
 
 	};
 
@@ -141,56 +140,75 @@ void MyGame::initScene()
 
 void MyGame::onKeyDown(SDL_Keycode keyCode)
 {
-
-	/*
-	if (keyCode == SDLK_a)
+	if (keyCode == SDLK_w)
 	{
-		m_CameraPosition += (vec3(-1.0f, 0.0f, 0.0f));
-	}
-	else if (keyCode == SDLK_d)
-	{
-		m_CameraPosition += (vec3(1.0f, 0.0f, 0.0f));
-	}
-	*/
-
-	if (keyCode== SDLK_w)
-	{
-		bool temp = false;
-		for each (shared_ptr<GameObject> gameObject in GOList)
+		if (!m_DebugMode)
 		{
-			if (gameObject->checkCollision(m_CameraPosition + vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)))))
+			bool temp = false;
+			for each (shared_ptr<GameObject> gameObject in GOList)
 			{
-				temp = true;
+				if (gameObject->checkCollision(m_Camera->collisionCheck(true)))
+				{
+					temp = true;
+				}
+			}
+			if (!temp)
+			{
+				m_Camera->moveForward();
 			}
 		}
+		else
+		{
+			m_Camera->moveForward();
+		}
+	}
+	else if (keyCode == SDLK_s)
+	{
+		if (!m_DebugMode)
+		{
+			bool temp = false;
+			for each (shared_ptr<GameObject> gameObject in GOList)
+			{
+				if (gameObject->checkCollision(m_Camera->collisionCheck(false)))
+				{
+					temp = true;
+				}
+				if (!temp)
+				{
+					m_Camera->moveBackward();
+				}
 
-		if (!temp)
-		{
-			m_CameraPosition += vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)));
+			}
+
 		}
-	}
-	else if (keyCode== SDLK_s)
-	{
-		m_CameraPosition -= vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)));
-	}
-	if (keyCode == SDLK_e)
-	{
-		m_CameraRotation += vec3(0.0f, radians(3.0f), 0.0f);
-		if (m_CameraRotation.y > 3.141592654f * 2)
+		else
 		{
-			m_CameraRotation += vec3(0.0f, -radians(360.0f), 0.0f);
-		}
-	}
-	else if (keyCode == SDLK_q)
-	{
-		m_CameraRotation += vec3(0.0f, radians(-3.0f), 0.0f);
-		if (m_CameraRotation.y < 0)
-		{
-			m_CameraRotation += vec3(0.0f, radians(360.0f), 0.0f);
+			m_Camera->moveBackward();
 		}
 	}
 
-	m_CameraLookAtPosition = vec3(cos(m_CameraRotation.y), 0, sin(m_CameraRotation.y));
+		if (keyCode == SDLK_e)
+		{
+			m_Camera->rotateCamera(3.0f);
+		}
+		else if (keyCode == SDLK_q)
+		{
+			m_Camera->rotateCamera(-3.0f);
+		}
+
+
+		if (keyCode == SDLK_p)
+		{
+			if (!m_DebugMode)
+			{
+				m_DebugMode = true;
+			}
+			else
+			{
+				m_DebugMode = false;
+			}
+
+		}
 }
 
 
@@ -232,6 +250,8 @@ void MyGame::update()
 
 void MyGame::render()
 {
+
+	m_ViewMatrix = lookAt(m_Camera->getCameraPosition(), m_Camera->getLookAtPosition(), vec3(0.0f, 1.0f, 0.0f));
 
 	GameApplication::render();
 

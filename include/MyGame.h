@@ -28,6 +28,8 @@ protected:
 	vector < shared_ptr<PostProcess> > m_PostProcessChain;
 	//Post Processing
 
+	shared_ptr<CameraController> m_Camera;
+	//Camera
 	
 
 private:
@@ -46,6 +48,7 @@ private:
 	vec3 m_CameraLookAtPosition;
 	vec3 m_CameraRotation;
 	
+	bool m_DebugMode = false;
 
 };
 #endif
