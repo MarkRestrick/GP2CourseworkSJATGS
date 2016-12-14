@@ -6,9 +6,12 @@
 #include "Texture.h"
 #include "Vertex.h"
 #include "ModelLoading.h"
-
+#include "PostProcessBuffer.h"
+#include "PostProcessingEffect.h"
+#include "ScreenAlignedQuad.h"
 #include "GameObject.h"
 #include "Light.h"
+#include "PostProcess.h"
 
 //Game Application class, this basically wraps up the initialisation of a game
 //this will be the base class of any game we are making. You should override this
@@ -65,6 +68,8 @@ protected:
 	unsigned int m_WindowCreationFlags;
 
 	ProgramOptions m_Options;
+
+
 
 	void parseConfig(int args,char * arg[]);
 };

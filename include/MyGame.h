@@ -15,6 +15,21 @@ public:
 	void destroyScene();
 
 	void onKeyDown(SDL_Keycode keyCode);
+
+	void addPostProcessingEffect(shared_ptr<PostProcess> post)
+	{
+		m_PostProcessChain.push_back(post);
+	}
+
+protected:
+
+	unique_ptr<PostProcess> m_PassThroughPostProcess;
+	unique_ptr<PostProcess> m_PassThroughPostProcess2;
+	vector < shared_ptr<PostProcess> > m_PostProcessChain;
+	//Post Processing
+
+	
+
 private:
 	//matrices
 	mat4 m_ViewMatrix;
