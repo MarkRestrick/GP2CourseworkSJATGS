@@ -27,7 +27,10 @@ private:
 	shared_ptr<Light> m_Light;
 	vec4 m_AmbientLightColour;
 
-	shared_ptr<CameraController> m_Camera;
+	vec3 m_CameraPosition;
+	vec3 m_CameraLookAtPosition;
+	vec3 m_CameraRotation;
+	
 	bool m_DebugMode = false;
 };
 #endif

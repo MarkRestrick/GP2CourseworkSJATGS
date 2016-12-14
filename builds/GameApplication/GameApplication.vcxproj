@@ -265,7 +265,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\Renderer.h" />
     <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\Mesh.h" />
     <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\BoxCollider.h" />
-    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\CameraController.h" />
     <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\GameApplication.cpp"  />
     <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\Shader.cpp"  />
     <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\Texture.cpp"  />
@@ -275,7 +274,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\Renderer.cpp"  />
     <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\Mesh.cpp"  />
     <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\BoxCollider.cpp"  />
-    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\CameraController.cpp"  />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/builds/GameApplication/Utils/Utils.vcxproj">
