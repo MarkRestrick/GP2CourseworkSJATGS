@@ -120,6 +120,7 @@ void Renderer::onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMat
 	glUniform1i(heightTextureLocation, 3);
 
 
+
 	GLint ambientLocation = glGetUniformLocation(shaderProgram, "ambientMaterialColour");
 	glUniform4fv(ambientLocation, 1, value_ptr(m_AmbientMaterialColour));
 

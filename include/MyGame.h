@@ -19,7 +19,7 @@ public:
 protected:
 
 	//Post Processing
-	//shared_ptr<PostProcessBuffer> m_PostBuffer;
+	shared_ptr<PostProcessBuffer> m_PostBuffer;
 	shared_ptr<ScreenAlignedQuad> m_ScreenAlignedQuad;
 	shared_ptr<PostProcessingEffect> m_PostEffect;
 	shared_ptr<depthFrameBuffer> m_depthBuffer;

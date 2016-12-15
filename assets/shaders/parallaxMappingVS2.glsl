@@ -12,11 +12,15 @@ out vec2 vertexTextureCoordsOut;
 out vec3 vertexNormalOut;
 out vec3 cameraDirectionOut;
 out vec3 lightDirectionOut;
+out vec4 FragPosLightSpace;
+out vec3 FragPos;
+
 
 uniform mat4 MVP;
 uniform mat4 Model;
 uniform vec3 cameraPos=vec3(0.0f,0.0f,10.0f);
 uniform vec3 lightDirection;
+uniform mat4 lightSpaceMatrix;
 
 void main()
 {
@@ -40,4 +44,7 @@ void main()
 	gl_Position = MVP * vec4(vertexPosition, 1.0);
 	vertexColoursOut=vertexColours;
 	vertexTextureCoordsOut=vertexTextureCoords;
+	FragPosLightSpace=lightSpaceMatrix*vec4(worldPos,1.0);
+	
+	FragPos=worldPos;
 }

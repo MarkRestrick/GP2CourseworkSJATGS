@@ -100,8 +100,8 @@ void MyGame::initScene()
 	m_AmbientLightColour = vec4(0.5f, 0.5f, 0.5f, 1.0f);
 
 
-	//m_PostBuffer = shared_ptr<PostProcessBuffer>(new PostProcessBuffer());
-	//m_PostBuffer->create(m_WindowWidth, m_WindowHeight);
+	m_PostBuffer = shared_ptr<PostProcessBuffer>(new PostProcessBuffer());
+	m_PostBuffer->create(m_WindowWidth, m_WindowHeight);
 	
 	
 
@@ -176,7 +176,7 @@ void MyGame::destroyScene()
 
 	m_PostEffect->destroy();
 	m_ScreenAlignedQuad->destroy();
-	//m_PostBuffer->destroy();
+	m_PostBuffer->destroy();
 
 	//KS loop through vertor to delect all ojs
 	for each (shared_ptr<GameObject> temp in GOList)
@@ -218,9 +218,11 @@ void MyGame::render()
 	glm::mat4 lightView;
 	glm::mat4 lightSpaceMatrix;
 
-	GLfloat near_plane = 1.0f, far_plane = 7.5f;
-	glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-	lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),
+	glm::vec3 lightPos(40.0f, 100.0f, 150.0f);
+
+	GLfloat near_plane = 1.0f, far_plane = 200.5f;
+	glm::mat4 lightProjection = glm::ortho(-120.0f, 120.0f, -120.0f, 120.0f, near_plane, far_plane);
+	lightView = glm::lookAt(lightPos,
 		glm::vec3(0.0f, 0.0f, 0.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f));
 	lightSpaceMatrix = lightProjection * lightView;
@@ -237,7 +239,10 @@ void MyGame::render()
 	//get model uniform here
 	m_depthBuffer->unbind();
 
-	/*
+	glViewport(0, 0, m_WindowWidth, m_WindowHeight);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	m_PostBuffer->bind();
 	//KS loop through vertor to render all ojs
 	for each (shared_ptr<GameObject> temp in GOList)
 	{
@@ -258,20 +263,23 @@ void MyGame::render()
 		GLint cameraPositionLocation = glGetUniformLocation(currentShader, "cameraPos");
 		glUniform3fv(cameraPositionLocation, 1, value_ptr(m_CameraPosition));
 
+		glUniformMatrix4fv(glGetUniformLocation(currentShader, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+		//glUniform3fv(glGetUniformLocation(currentShader, "lightPos"), 1, GL_FALSE, glm::value_ptr(vec2( 100.0f, 150.0f)));
+		GLint lightPositionLocation = glGetUniformLocation(currentShader, "lightPos");
+		glUniform3fv(lightPositionLocation, 1, value_ptr(lightPos));
+
 		temp->onRender(m_ViewMatrix, m_ProjMatrix);
 		temp->draw();
 
+
+
 		//GOList.pop_back();
 	}
-	*/
 	
 	
+	m_PostBuffer->unbind();
 	
-	
-
-
-	//glViewport(0, 0, 1024, 768);
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
 
 	m_PostEffect->bind();
 	GLuint currentShader = m_PostEffect->getShaderProgram();
@@ -281,8 +289,10 @@ void MyGame::render()
 	glBindTexture(GL_TEXTURE_2D, m_depthBuffer->GetTexture());
 	glUniform1i(textureLocation, 0);
 	
+	
+
 	m_ScreenAlignedQuad->render();
-	m_depthBuffer->unbind();
+	//m_depthBuffer->unbind();
 	
 	
 }
