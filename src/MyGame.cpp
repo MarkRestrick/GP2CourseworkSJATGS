@@ -155,10 +155,10 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 {
 	if (keyCode == SDLK_a)
 	{
-		m_TestGO->rotate(vec3(0.0f, 0.1f, 0.0f));
+		m_CameraPosition += vec3(-1.0f, 0.0f, 0.0f);
 	}else if (keyCode == SDLK_d)
 	{
-		m_TestGO->rotate(vec3(0.0f, -0.1f, 0.0f));
+		m_CameraPosition += vec3(1.0f, 0.0f, 0.0f);
 	}
 	if (keyCode==SDLK_w)
 	{
@@ -199,7 +199,8 @@ void MyGame::update()
 	GameApplication::update();
 
 	m_ProjMatrix = perspective(radians(45.0f), (float)m_WindowWidth / (float)m_WindowHeight, 0.1f, 1000.0f);
-	m_ViewMatrix = lookAt(m_CameraPosition, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+	m_ViewMatrix = lookAt(m_CameraPosition, vec3(0.0f, 0.0f, -10.0f), vec3(0.0f, 1.0f, 0.0f));
+
 	
 	//KS loop through vertor to update all ojs
 	for each (shared_ptr<GameObject> temp in GOList)
@@ -213,20 +214,24 @@ void MyGame::render()
 {
 	GameApplication::render();
 
+
+	GLuint Sampler = 0;
+	
 	m_depthBuffer->bind();
 
 	glm::mat4 lightView;
 	glm::mat4 lightSpaceMatrix;
 
-	glm::vec3 lightPos(40.0f, 100.0f, 150.0f);
+	glm::vec3 lightPos(100.0f, -150.0f, 0.0f);
 
-	GLfloat near_plane = 1.0f, far_plane = 200.5f;
-	glm::mat4 lightProjection = glm::ortho(-120.0f, 120.0f, -120.0f, 120.0f, near_plane, far_plane);
+	GLfloat near_plane = 1.0f, far_plane = 350.0f;
+	glm::mat4 lightProjection = glm::ortho(-150.0f, 150.0f, -150.0f, 150.0f, near_plane, far_plane);
 	lightView = glm::lookAt(lightPos,
 		glm::vec3(0.0f, 0.0f, 0.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f));
 	lightSpaceMatrix = lightProjection * lightView;
-
+	
+	
 
 	for each (shared_ptr<GameObject> temp in GOList)
 	{
@@ -237,12 +242,14 @@ void MyGame::render()
 		temp->draw();
 	}
 	//get model uniform here
+
 	m_depthBuffer->unbind();
 
 	glViewport(0, 0, m_WindowWidth, m_WindowHeight);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	
 	m_PostBuffer->bind();
+	
 	//KS loop through vertor to render all ojs
 	for each (shared_ptr<GameObject> temp in GOList)
 	{
@@ -268,6 +275,30 @@ void MyGame::render()
 		GLint lightPositionLocation = glGetUniformLocation(currentShader, "lightPos");
 		glUniform3fv(lightPositionLocation, 1, value_ptr(lightPos));
 
+		
+		
+		GLuint m_ShadowTexture = m_depthBuffer->GetTexture();
+		//glActiveTexture(2);
+
+		glBindTexture(GL_TEXTURE_2D, m_ShadowTexture);
+
+		
+		glGenerateMipmap(GL_TEXTURE_2D);
+
+		glGenSamplers(1, &Sampler);
+		glSamplerParameteri(Sampler, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glSamplerParameteri(Sampler, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glSamplerParameteri(Sampler, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glSamplerParameteri(Sampler, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		
+
+		glBindSampler(0, Sampler);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, m_ShadowTexture);
+		GLint shadowTex = glGetUniformLocation(currentShader, "shadowMap");
+		glUniform1i(shadowTex, 0);
+
+		
 		temp->onRender(m_ViewMatrix, m_ProjMatrix);
 		temp->draw();
 
@@ -286,13 +317,13 @@ void MyGame::render()
 
 	GLint textureLocation = glGetUniformLocation(currentShader, "texture0");
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, m_depthBuffer->GetTexture());
+	glBindTexture(GL_TEXTURE_2D, m_PostBuffer->GetTexture());
 	glUniform1i(textureLocation, 0);
 	
 	
 
 	m_ScreenAlignedQuad->render();
-	//m_depthBuffer->unbind();
+	m_depthBuffer->unbind();
 	
 	
 }

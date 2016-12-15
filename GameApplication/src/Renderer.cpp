@@ -95,6 +95,8 @@ void Renderer::onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMat
 	GLint ModelLocation = glGetUniformLocation(shaderProgram, "Model");
 	glUniformMatrix4fv(ModelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
+
+
 	glBindSampler(0, m_Sampler);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_DiffuseTexture);
@@ -118,6 +120,8 @@ void Renderer::onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMat
 	glBindTexture(GL_TEXTURE_2D,m_HeightTexture);
 	GLint heightTextureLocation = glGetUniformLocation(shaderProgram, "heightMap");
 	glUniform1i(heightTextureLocation, 3);
+
+	
 
 
 

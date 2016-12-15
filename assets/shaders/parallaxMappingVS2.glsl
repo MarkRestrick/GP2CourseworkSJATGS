@@ -12,7 +12,7 @@ out vec2 vertexTextureCoordsOut;
 out vec3 vertexNormalOut;
 out vec3 cameraDirectionOut;
 out vec3 lightDirectionOut;
-out vec4 FragPosLightSpace;
+out vec4 fragPosLightSpace;
 out vec3 FragPos;
 
 
@@ -44,7 +44,7 @@ void main()
 	gl_Position = MVP * vec4(vertexPosition, 1.0);
 	vertexColoursOut=vertexColours;
 	vertexTextureCoordsOut=vertexTextureCoords;
-	FragPosLightSpace=lightSpaceMatrix*vec4(worldPos,1.0);
+	fragPosLightSpace=lightSpaceMatrix*vec4(worldPos,1.0);
 	
 	FragPos=worldPos;
 }

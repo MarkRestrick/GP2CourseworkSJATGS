@@ -17,8 +17,8 @@ public:
 		return depthMap;
 	};
 private:
-	const GLuint SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
-	const GLuint SCR_WIDTH = 1024, SCR_HEIGHT = 768;
+	const GLuint SHADOW_WIDTH = 640, SHADOW_HEIGHT = 480;
+	const GLuint SCR_WIDTH = 640, SCR_HEIGHT = 480;
 	GLuint depthMapFBO;
 	GLuint depthMap;
 };
