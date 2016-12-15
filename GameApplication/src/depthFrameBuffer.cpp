@@ -38,7 +38,7 @@ bool depthFrameBuffer::create()
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	//glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 	if (status != GL_FRAMEBUFFER_COMPLETE)
@@ -51,6 +51,8 @@ bool depthFrameBuffer::create()
 	return true;
 }
 
+
+
 void depthFrameBuffer::bind()
 {
 	glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
@@ -62,8 +64,9 @@ void depthFrameBuffer::bind()
 void depthFrameBuffer::unbind()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
+
 
 

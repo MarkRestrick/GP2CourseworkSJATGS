@@ -1,4 +1,3 @@
-2 lines (8 sloc)  150 Bytes
 #version 410
 
 out vec4 FragColor;
@@ -8,5 +7,27 @@ uniform sampler2D texture0;
 
 void main()
 {
+    float depthValue = texture(texture0, textureCoords).r;
+    FragColor = vec4(vec3(depthValue), 1.0);
+	
+}
+
+
+
+
+
+
+
+
+
+/*
+out vec4 FragColor;
+in vec2 textureCoords;
+
+uniform sampler2D texture0;
+
+void main()
+{
 	FragColor = texture(texture0, textureCoords);
 }
+*/

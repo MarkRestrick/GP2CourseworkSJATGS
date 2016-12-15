@@ -112,18 +112,38 @@ void MyGame::initScene()
 	m_ScreenAlignedQuad->create();
 
 	//string vsPostFilename = ASSET_PATH + SHADER_PATH + "/postProcessingVS.glsl";
-	string vsPostFilename = ASSET_PATH + SHADER_PATH + "/simpleDepthShaderVS.glsl";
+	string ShadowVSFilename = ASSET_PATH + SHADER_PATH + "/simpleDepthShaderVS.glsl";
 
 	
 		//string fsPostFilename = ASSET_PATH + SHADER_PATH + "/colourFilterFS.glsl";
 		//string fsPostFilename = ASSET_PATH + SHADER_PATH + "/sharpenFS.glsl";
 		//string fsPostFilename = ASSET_PATH + SHADER_PATH + "/blurFS.glsl";
-		  string fsPostFilename = ASSET_PATH + SHADER_PATH + "/simpleDepthShaderFS.glsl";
+		  string ShadowFSFilename = ASSET_PATH + SHADER_PATH + "/simpleDepthShaderFS.glsl";
+
+		  string PostVSFilename = ASSET_PATH + SHADER_PATH + "/postProcessingVS.glsl";
+		  string PostFSFilename = ASSET_PATH + SHADER_PATH + "/simplePostProcessFS.glsl";
 
 	m_PostEffect = shared_ptr<PostProcessingEffect>(new PostProcessingEffect());
-	m_PostEffect->loadShader(vsPostFilename,fsPostFilename);
+	m_PostEffect->loadShader(PostVSFilename, PostFSFilename);
 	
-	
+
+
+
+	GLuint vertexShaderProgram = loadShaderFromFile(ShadowVSFilename, VERTEX_SHADER);
+
+	GLuint fragmentShaderProgram = loadShaderFromFile(ShadowFSFilename, FRAGMENT_SHADER);
+
+	m_shadowProgram = glCreateProgram();
+	glAttachShader(m_shadowProgram, vertexShaderProgram);
+	glAttachShader(m_shadowProgram, fragmentShaderProgram);
+	glLinkProgram(m_shadowProgram);
+	checkForLinkErrors(m_shadowProgram);
+
+	//now we can delete the VS & FS Programs
+	glDeleteShader(vertexShaderProgram);
+	glDeleteShader(fragmentShaderProgram);
+
+	logShaderInfo(m_shadowProgram);
 
 	
 
@@ -191,14 +211,33 @@ void MyGame::update()
 
 void MyGame::render()
 {
+	GameApplication::render();
 
 	m_depthBuffer->bind();
 
-	GameApplication::render();
-	
-	
+	glm::mat4 lightView;
+	glm::mat4 lightSpaceMatrix;
+
+	GLfloat near_plane = 1.0f, far_plane = 7.5f;
+	glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+	lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),
+		glm::vec3(0.0f, 0.0f, 0.0f),
+		glm::vec3(0.0f, 1.0f, 0.0f));
+	lightSpaceMatrix = lightProjection * lightView;
 
 
+	for each (shared_ptr<GameObject> temp in GOList)
+	{
+		//GLuint currentShader = m_PostEffect->getShaderProgram();
+		glUseProgram(m_shadowProgram);
+		glUniformMatrix4fv(glGetUniformLocation(m_shadowProgram, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(m_shadowProgram, "model"), 1, GL_FALSE, glm::value_ptr(temp->getModelMatrix()));
+		temp->draw();
+	}
+	//get model uniform here
+	m_depthBuffer->unbind();
+
+	/*
 	//KS loop through vertor to render all ojs
 	for each (shared_ptr<GameObject> temp in GOList)
 	{
@@ -220,37 +259,30 @@ void MyGame::render()
 		glUniform3fv(cameraPositionLocation, 1, value_ptr(m_CameraPosition));
 
 		temp->onRender(m_ViewMatrix, m_ProjMatrix);
+		temp->draw();
 
 		//GOList.pop_back();
 	}
-
+	*/
 	
-	glm::mat4 lightView;
-	glm::mat4 lightSpaceMatrix;
-
-	GLfloat near_plane = 1.0f, far_plane = 7.5f;
-	glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-	lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),
-							glm::vec3(0.0f, 0.0f, 0.0f), 
-							glm::vec3(0.0f, 1.0f, 0.0f));
-	lightSpaceMatrix = lightProjection * lightView;
-
-	GLuint currentShader = m_PostEffect->getShaderProgram();
-	glUniformMatrix4fv(glGetUniformLocation(currentShader, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+	
+	
 	
 
-	m_depthBuffer->unbind();
+
+	//glViewport(0, 0, 1024, 768);
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	m_PostEffect->bind();
-	//GLuint currentShader = m_PostEffect->getShaderProgram();
+	GLuint currentShader = m_PostEffect->getShaderProgram();
 
-	//GLint textureLocation = glGetUniformLocation(currentShader, "depthMap");
+	GLint textureLocation = glGetUniformLocation(currentShader, "texture0");
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_depthBuffer->GetTexture());
-	//glUniform1i(textureLocation, 0);
-
+	glUniform1i(textureLocation, 0);
+	
 	m_ScreenAlignedQuad->render();
 	m_depthBuffer->unbind();
-	//Do above again but with out the object for loop
+	
 	
 }

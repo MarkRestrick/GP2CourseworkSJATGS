@@ -21,6 +21,7 @@ public:
 
 	void onUpdate();
 	void onRender(mat4& view, mat4& projection);
+	void draw();
 	void onInit();
 	void onDestroy();
 

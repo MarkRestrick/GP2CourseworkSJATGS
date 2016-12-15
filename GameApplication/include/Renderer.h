@@ -19,6 +19,8 @@ public:
 
 	void onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMatrix, int numberOfIndices, GLuint VBO, GLuint EBO);
 
+	void draw(GLuint VAO, GLuint VBO, GLuint EBO, int numberOfIndices);
+
 	GLuint getShaderProgram()
 	{
 		return m_ShaderProgram;
