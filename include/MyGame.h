@@ -27,6 +27,7 @@ protected:
 	unique_ptr<PostProcess> m_PassThroughPostProcess;
 	unique_ptr<PostProcess> m_PassThroughPostProcess2;
 	vector < shared_ptr<PostProcess> > m_PostProcessChain;
+	shared_ptr<depthFrameBuffer> m_depthBuffer;
 	//Post Processing
 
 	shared_ptr<CameraController> m_Camera;
@@ -50,6 +51,6 @@ private:
 	vec3 m_CameraRotation;
 	
 	bool m_DebugMode = false;
-
+	GLuint m_shadowProgram;
 };
 #endif

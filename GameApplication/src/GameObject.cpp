@@ -100,3 +100,11 @@ void GameObject::getColliderSize(vec3 high, vec3 low)
 	m_GameObjectCollider.setTransform(m_GameObjectTransform.getPosition(), m_GameObjectTransform.getScale());
 	m_GameObjectCollider.setCollider(high, low);
 }
+void GameObject::draw()
+{
+	GLuint VAO = m_GameObjectMesh.getVAO();
+	GLuint VBO = m_GameObjectMesh.getVBO();
+	GLuint EBO = m_GameObjectMesh.getEBO();
+	GLuint numberOfVertices = m_GameObjectMesh.getNumberOfIndices();
+	m_GameObjectRenderer.draw(VAO, VBO, EBO, numberOfVertices);
+}

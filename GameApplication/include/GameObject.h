@@ -24,6 +24,7 @@ public:
 	void onRender(mat4& view, mat4& projection);
 	void onInit();
 	void onDestroy();
+	void draw();
 
 	void addChild(shared_ptr<GameObject> gameobject);
 
