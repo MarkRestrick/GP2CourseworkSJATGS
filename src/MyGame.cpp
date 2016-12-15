@@ -118,21 +118,31 @@ void MyGame::initScene()
 
 
 	m_PassThroughPostProcess = unique_ptr<PostProcess>(new PostProcess());
-	m_PassThroughPostProcess->create(m_WindowWidth, m_WindowHeight, ASSET_PATH + SHADER_PATH + "/colourFilterFS.glsl");
-
-
-	m_PassThroughPostProcess2 = unique_ptr<PostProcess>(new PostProcess());
-	m_PassThroughPostProcess2->create(m_WindowWidth, m_WindowHeight, ASSET_PATH + SHADER_PATH + "/sharpenFS.glsl");
-
-
+	m_PassThroughPostProcess->create(m_WindowWidth, m_WindowHeight, ASSET_PATH + SHADER_PATH + "/simplePostProcessFS.glsl");
 
 	/*
+	m_PassThroughPostProcess2 = unique_ptr<PostProcess>(new PostProcess());
+	m_PassThroughPostProcess2->create(m_WindowWidth, m_WindowHeight, ASSET_PATH + SHADER_PATH + "/sharpenFS.glsl");
+	*/
+
+
+	
 	shared_ptr<PostProcess> post = shared_ptr<PostProcess>(new PostProcess());
-	string fsPostColourCorrectionFilename = ASSET_PATH + SHADER_PATH + "/colourFilterFS.glsl";
+	string fsPostColourCorrectionFilename = ASSET_PATH + SHADER_PATH + "/SharpenFS.glsl";
 	post->create(m_WindowWidth, m_WindowHeight, fsPostColourCorrectionFilename);
 	addPostProcessingEffect(post);
 
-	*/
+
+	post = shared_ptr<PostProcess>(new PostProcess());
+	string fsPostColourFilterFS = ASSET_PATH + SHADER_PATH + "/colourFilterFS.glsl";
+	post->create(m_WindowWidth, m_WindowHeight, fsPostColourFilterFS);
+	addPostProcessingEffect(post);
+	
+	post = shared_ptr<PostProcess>(new PostProcess());
+	string fsPostColourInvertFS = ASSET_PATH + SHADER_PATH + "/colourInvertFS.glsl";
+	post->create(m_WindowWidth, m_WindowHeight, fsPostColourInvertFS);
+	addPostProcessingEffect(post);
+	
 
 	
 }
@@ -173,11 +183,11 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 				{
 					temp = true;
 				}
-				if (!temp)
-				{
-					m_Camera->moveBackward();
-				}
 
+			}
+			if (!temp)
+			{
+				m_Camera->moveBackward();
 			}
 
 		}
@@ -300,17 +310,23 @@ void MyGame::render()
 
 	
 
-	m_PassThroughPostProcess2->getBuffer()->bind();
+	//m_PassThroughPostProcess2->getBuffer()->bind();
+
+	if (m_PostProcessChain.size() > 0)
+	{
+		m_PostProcessChain[0]->getBuffer()->bind();
+	}
+	
 
 	m_PassThroughPostProcess->getQuad()->render();
 	m_PassThroughPostProcess->getBuffer()->unbind();
 
 
 	
-	m_PassThroughPostProcess2->getEffect()->bind(); //PP2
+	//m_PassThroughPostProcess2->getEffect()->bind(); //PP2
 
 
-	
+	/*
 	GLuint currentShader2 = m_PassThroughPostProcess2->getEffect()->getShaderProgram();
 	GLint textureLocation2 = glGetUniformLocation(currentShader2, "texture0");
 	glActiveTexture(GL_TEXTURE0);
@@ -319,22 +335,29 @@ void MyGame::render()
 
 	m_PassThroughPostProcess2->getQuad()->render();
 	m_PassThroughPostProcess2->getBuffer()->unbind();
-	/*
-	for (auto& post : m_PostProcessChain)
+	*/
+
+	
+	for (int i = 0; i < m_PostProcessChain.size(); i++)
 	{
-		post->getBuffer()->bind();
-		post->getEffect()->bind();
-		GLuint currentShader = post->getEffect()->getShaderProgram();
+
+		//post->getBuffer()->bind();
+		m_PostProcessChain[i]->getEffect()->bind();
+		GLuint currentShader = m_PostProcessChain[i]->getEffect()->getShaderProgram();
 
 		GLint textureLocation = glGetUniformLocation(currentShader, "texture0");
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, post->getBuffer()->GetTexture());
+		glBindTexture(GL_TEXTURE_2D, m_PostProcessChain[i]->getBuffer()->GetTexture());
 		glUniform1i(textureLocation, 0);
 
-		post->getQuad()->render();
-		post->getBuffer()->unbind();
+		if (i + 1 < m_PostProcessChain.size())
+		{
+			m_PostProcessChain[i + 1]->getBuffer()->bind();
+		}
+		m_PostProcessChain[i]->getQuad()->render();
+		m_PostProcessChain[i]->getBuffer()->unbind();
 	}
-	*/
+	
 	
 
 	//m_PostBuffer->unbind();
