@@ -1,0 +1,17 @@
+# CMake generation dependency list for this directory.
+C:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/GameApplication/Utils/CMakeLists.txt
+C:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/cmake/FindTinyXML.cmake
+C:/StreamingApps/CMake/share/cmake-3.3/Modules/FindPackageHandleStandardArgs.cmake
+C:/StreamingApps/CMake/share/cmake-3.3/Modules/FindPackageMessage.cmake
+C:/StreamingApps/CMake/share/cmake-3.3/Modules/CMakeParseArguments.cmake
+C:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/cmake/FindSDL2.cmake
+C:/StreamingApps/CMake/share/cmake-3.3/Modules/FindThreads.cmake
+C:/StreamingApps/CMake/share/cmake-3.3/Modules/CheckIncludeFiles.cmake
+C:/StreamingApps/CMake/share/cmake-3.3/Modules/CheckLibraryExists.cmake
+C:/StreamingApps/CMake/share/cmake-3.3/Modules/CheckSymbolExists.cmake
+C:/StreamingApps/CMake/share/cmake-3.3/Modules/FindPackageHandleStandardArgs.cmake
+C:/StreamingApps/CMake/share/cmake-3.3/Modules/FindPackageMessage.cmake
+C:/StreamingApps/CMake/share/cmake-3.3/Modules/CMakeParseArguments.cmake
+C:/StreamingApps/CMake/share/cmake-3.3/Modules/FindPackageHandleStandardArgs.cmake
+C:/StreamingApps/CMake/share/cmake-3.3/Modules/FindPackageMessage.cmake
+C:/StreamingApps/CMake/share/cmake-3.3/Modules/CMakeParseArguments.cmake

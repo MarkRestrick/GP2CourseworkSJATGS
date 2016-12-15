@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\src\MyGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\include\MyGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{7CFB6655-5130-40D5-9D13-8EFCC85345E3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{E6A7701B-66A5-45F8-9C62-264920A92C73}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

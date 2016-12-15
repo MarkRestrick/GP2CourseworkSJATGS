@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{2DB64139-C68B-4644-8375-C00C86EDF133}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>GameApplication</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\builds\GameApplication\Debug\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">GameApplication.dir\Debug\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">GameApplication</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\builds\GameApplication\Release\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">GameApplication.dir\Release\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">GameApplication</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\builds\GameApplication\MinSizeRel\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">GameApplication.dir\MinSizeRel\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">GameApplication</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\builds\GameApplication\RelWithDebInfo\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">GameApplication.dir\RelWithDebInfo\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">GameApplication</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalOptions> /EHsc"%3B"-std=c++0x -g %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\GameApplication;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2-2.0.4\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\tinyxml2\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glm;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glew-2.0.0\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_image-2.0.1\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_ttf-2.0.14\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;WIN32;_WINDOWS;_DEBUG;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;WIN32;_WINDOWS;_DEBUG;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\GameApplication;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2-2.0.4\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\tinyxml2\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glm;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glew-2.0.0\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_image-2.0.1\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_ttf-2.0.14\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\GameApplication;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2-2.0.4\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\tinyxml2\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glm;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glew-2.0.0\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_image-2.0.1\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_ttf-2.0.14\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions> /EHsc"%3B"-std=c++0x -g %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\GameApplication;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2-2.0.4\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\tinyxml2\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glm;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glew-2.0.0\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_image-2.0.1\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_ttf-2.0.14\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\GameApplication;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2-2.0.4\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\tinyxml2\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glm;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glew-2.0.0\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_image-2.0.1\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_ttf-2.0.14\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\GameApplication;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2-2.0.4\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\tinyxml2\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glm;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glew-2.0.0\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_image-2.0.1\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_ttf-2.0.14\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalOptions> /EHsc"%3B"-std=c++0x -g %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\GameApplication;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2-2.0.4\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\tinyxml2\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glm;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glew-2.0.0\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_image-2.0.1\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_ttf-2.0.14\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\GameApplication;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2-2.0.4\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\tinyxml2\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glm;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glew-2.0.0\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_image-2.0.1\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_ttf-2.0.14\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\GameApplication;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2-2.0.4\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\tinyxml2\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glm;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glew-2.0.0\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_image-2.0.1\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_ttf-2.0.14\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalOptions> /EHsc"%3B"-std=c++0x -g %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\GameApplication;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2-2.0.4\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\tinyxml2\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glm;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glew-2.0.0\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_image-2.0.1\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_ttf-2.0.14\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\GameApplication;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2-2.0.4\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\tinyxml2\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glm;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glew-2.0.0\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_image-2.0.1\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_ttf-2.0.14\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\GameApplication;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\Utils\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2-2.0.4\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\tinyxml2\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glm;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\glew-2.0.0\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_image-2.0.1\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\SDL2_ttf-2.0.14\include;C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Specialised Applications\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/GameApplication/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\StreamingApps\CMake\bin\cmake.exe -HC:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS -BC:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/builds --check-stamp-file C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\builds\GameApplication\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/GameApplication/CMakeLists.txt;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\CMakeLists.txt;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindTinyXML.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindSDL2.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindThreads.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CheckIncludeFiles.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CheckLibraryExists.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CheckSymbolExists.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindOpenGL.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindGLM.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindGLEW.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindSDL2_Image.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindSDL2_TTF.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\Findassimp.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\builds\GameApplication\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/GameApplication/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\StreamingApps\CMake\bin\cmake.exe -HC:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS -BC:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/builds --check-stamp-file C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\builds\GameApplication\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/GameApplication/CMakeLists.txt;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\CMakeLists.txt;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindTinyXML.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindSDL2.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindThreads.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CheckIncludeFiles.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CheckLibraryExists.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CheckSymbolExists.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindOpenGL.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindGLM.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindGLEW.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindSDL2_Image.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindSDL2_TTF.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\Findassimp.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\builds\GameApplication\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/GameApplication/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\StreamingApps\CMake\bin\cmake.exe -HC:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS -BC:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/builds --check-stamp-file C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\builds\GameApplication\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/GameApplication/CMakeLists.txt;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\CMakeLists.txt;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindTinyXML.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindSDL2.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindThreads.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CheckIncludeFiles.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CheckLibraryExists.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CheckSymbolExists.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindOpenGL.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindGLM.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindGLEW.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindSDL2_Image.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindSDL2_TTF.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\Findassimp.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\builds\GameApplication\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/GameApplication/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\StreamingApps\CMake\bin\cmake.exe -HC:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS -BC:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/builds --check-stamp-file C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\builds\GameApplication\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/GameApplication/CMakeLists.txt;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\CMakeLists.txt;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindTinyXML.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindSDL2.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindThreads.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CheckIncludeFiles.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CheckLibraryExists.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CheckSymbolExists.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindOpenGL.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindGLM.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindGLEW.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindSDL2_Image.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\FindSDL2_TTF.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\cmake\Findassimp.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageHandleStandardArgs.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\FindPackageMessage.cmake;C:\StreamingApps\CMake\share\cmake-3.3\Modules\CMakeParseArguments.cmake;C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\builds\GameApplication\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\Common.h" />
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\GameApplication.h" />
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\Shader.h" />
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\Texture.h" />
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\Vertex.h" />
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\GameObject.h" />
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\ModelLoading.h" />
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\Light.h" />
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\Transform.h" />
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\Renderer.h" />
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\Mesh.h" />
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\PostProcessBuffer.h" />
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\PostProcessingEffect.h" />
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\PostProcess.h" />
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\ScreenAlignedQuad.h" />
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\CameraController.h" />
+    <ClInclude Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\include\BoxCollider.h" />
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\GameApplication.cpp"  />
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\Shader.cpp"  />
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\Texture.cpp"  />
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\GameObject.cpp"  />
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\ModelLoading.cpp"  />
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\Transform.cpp"  />
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\Renderer.cpp"  />
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\Mesh.cpp"  />
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\PostProcessBuffer.cpp"  />
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\PostProcessingEffect.cpp"  />
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\PostProcess.cpp"  />
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\ScreenAlignedQuad.cpp"  />
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\CameraController.cpp"  />
+    <ClCompile Include="C:\Users\adunca202\Desktop\GitHub\GP2CourseworkSJATGS\GameApplication\src\BoxCollider.cpp"  />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/builds/GameApplication/Utils/Utils.vcxproj">
+      <Project>30E7F587-8C92-4BE4-8F8C-7167519C105B</Project>
+    </ProjectReference>
+    <ProjectReference Include="C:/Users/adunca202/Desktop/GitHub/GP2CourseworkSJATGS/builds/ZERO_CHECK.vcxproj">
+      <Project>A26B7A11-F536-4756-86BA-2988C169891C</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
