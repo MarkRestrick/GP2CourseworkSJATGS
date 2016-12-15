@@ -87,9 +87,9 @@ void Renderer::onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMat
 
 	GLuint shaderProgram = m_ShaderProgram;
 	glUseProgram(shaderProgram);
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	//glBindVertexArray(VAO);
+	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
 	GLint MVPLocation = glGetUniformLocation(shaderProgram, "MVP");
 	mat4 MVP = projection*view*modelMatrix;
@@ -136,8 +136,16 @@ void Renderer::onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMat
 	GLint specularPowerLocation = glGetUniformLocation(shaderProgram, "specularPower");
 	glUniform1f(specularPowerLocation, m_SpecularMaterialPower);
 
-	glDrawElements(GL_TRIANGLES, numberOfIndices, GL_UNSIGNED_INT, NULL);
+	//glDrawElements(GL_TRIANGLES, numberOfIndices, GL_UNSIGNED_INT, NULL);
 
+}
+
+void Renderer::draw(GLuint VAO, GLuint VBO, GLuint EBO, int numberOfIndices)
+{
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glDrawElements(GL_TRIANGLES, numberOfIndices, GL_UNSIGNED_INT, NULL);
 }
 
 

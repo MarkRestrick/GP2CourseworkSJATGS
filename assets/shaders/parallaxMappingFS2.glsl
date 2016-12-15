@@ -7,8 +7,15 @@ in vec3 cameraDirectionOut;
 in vec2 vertexTextureCoordsOut;
 in vec3 lightDirectionOut;
 in vec4 vertexColoursOut;
+in vec4 fragPosLightSpace;
+in vec3 FragPos;
+
 
 uniform sampler2D normalSampler;
+
+uniform sampler2D shadowMap;
+uniform vec3 lightPos;
+uniform vec3 viewPos;
 
 struct DirectionalLight
 {
@@ -26,14 +33,23 @@ uniform DirectionalLight directionLight;
 uniform vec4 ambientMaterialColour=vec4(0.5f,0.0f,0.0f,1.0f);
 uniform vec4 diffuseMaterialColour=vec4(0.8f,0.0f,0.0f,1.0f);
 uniform vec4 specularMaterialColour=vec4(1.0f,1.0f,1.0f,1.0f);
-uniform float specularPower=25.0f;
+uniform float specularPower=100.0f;
 uniform sampler2D diffuseSampler;
 uniform sampler2D specularSampler;
 uniform float bias=0.03;
 uniform float scale = 0.015f;
 uniform sampler2D heightMap;
 
+float ShadowCalculation(vec4 fragPosLightSpace)
+{
+vec3 projCoords=fragPosLightSpace.xyz/fragPosLightSpace.w;
+projCoords=projCoords*0.5+0.5;
+float closestDepth=texture(shadowMap,projCoords.xy).r;
+float currentDepth=projCoords.z;
+float shadow = currentDepth>closestDepth? 1.0:0.0;
 
+return shadow;
+}
 
 
 void main()
@@ -66,8 +82,11 @@ void main()
 	vec4 textureColour = texture(diffuseSampler, correctedTexCoord);
 	vec4 specColour = texture(specularSampler, correctedTexCoord);
 
+	float shadow=ShadowCalculation(fragPosLightSpace);
 	
 	//FragColor = vec4 ( halfWayVec, 1.0f);
 	
-	FragColor = (ambientMaterialColour*directionLight.ambientColour) + (textureColour*directionLight.diffuseColour*diffuseTerm) + (specColour*directionLight.specularColour*specularTerm);
+	
+	FragColor = ((ambientMaterialColour*directionLight.ambientColour) +((textureColour*directionLight.diffuseColour*diffuseTerm) + (specColour*directionLight.specularColour*specularTerm))*(1.0-shadow));
+//FragColor = vec4(vec3(1.0f - shadow), 1.0f);
 }

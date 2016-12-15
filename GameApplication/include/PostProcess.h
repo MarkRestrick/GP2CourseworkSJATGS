@@ -12,7 +12,7 @@ public:
 	PostProcess();
 	~PostProcess();
 
-	bool create(int bufferWidth, int bufferHeight, const string& fsFilename);
+	bool create(int bufferWidth, int bufferHeight, const string& vsFilename,const string& fsFilename);
 	void destroy();
 
 	PostProcessBuffer * getBuffer()

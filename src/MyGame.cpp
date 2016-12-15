@@ -115,10 +115,10 @@ void MyGame::initScene()
 	m_PostEffect->loadShader(fsPostFilename);
 	*/
 	
+	string PostVSFilename = ASSET_PATH + SHADER_PATH + "/postProcessingVS.glsl";
+	string PostFSFilename = ASSET_PATH + SHADER_PATH + "/simplePostProcessFS.glsl";
 
 
-	m_PassThroughPostProcess = unique_ptr<PostProcess>(new PostProcess());
-	m_PassThroughPostProcess->create(m_WindowWidth, m_WindowHeight, ASSET_PATH + SHADER_PATH + "/simplePostProcessFS.glsl");
 
 	/*
 	m_PassThroughPostProcess2 = unique_ptr<PostProcess>(new PostProcess());
@@ -126,24 +126,68 @@ void MyGame::initScene()
 	*/
 
 
-	/*
+	
 	shared_ptr<PostProcess> post = shared_ptr<PostProcess>(new PostProcess());
 	string fsPostColourCorrectionFilename = ASSET_PATH + SHADER_PATH + "/SharpenFS.glsl";
-	post->create(m_WindowWidth, m_WindowHeight, fsPostColourCorrectionFilename);
+	post->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourCorrectionFilename);
 	addPostProcessingEffect(post);
 
+	/*
 
 	post = shared_ptr<PostProcess>(new PostProcess());
 	string fsPostColourFilterFS = ASSET_PATH + SHADER_PATH + "/colourFilterFS.glsl";
-	post->create(m_WindowWidth, m_WindowHeight, fsPostColourFilterFS);
+	post->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourFilterFS);
 	addPostProcessingEffect(post);
 	
+
 	post = shared_ptr<PostProcess>(new PostProcess());
 	string fsPostColourInvertFS = ASSET_PATH + SHADER_PATH + "/colourInvertFS.glsl";
-	post->create(m_WindowWidth, m_WindowHeight, fsPostColourInvertFS);
+	post->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourInvertFS);
 	addPostProcessingEffect(post);
 	*/
-	
+
+
+
+
+	m_depthBuffer = shared_ptr<depthFrameBuffer>(new depthFrameBuffer());
+	m_depthBuffer->create();
+
+
+	//string vsPostFilename = ASSET_PATH + SHADER_PATH + "/postProcessingVS.glsl";
+	string ShadowVSFilename = ASSET_PATH + SHADER_PATH + "/simpleDepthShaderVS.glsl";
+
+
+	//string fsPostFilename = ASSET_PATH + SHADER_PATH + "/colourFilterFS.glsl";
+	//string fsPostFilename = ASSET_PATH + SHADER_PATH + "/sharpenFS.glsl";
+	//string fsPostFilename = ASSET_PATH + SHADER_PATH + "/blurFS.glsl";
+	string ShadowFSFilename = ASSET_PATH + SHADER_PATH + "/simpleDepthShaderFS.glsl";
+
+
+
+	m_PassThroughPostProcess = unique_ptr<PostProcess>(new PostProcess());
+	m_PassThroughPostProcess->create(m_WindowWidth, m_WindowHeight, PostVSFilename, PostFSFilename);
+
+	//m_PostEffect = shared_ptr<PostProcessingEffect>(new PostProcessingEffect());
+	//m_PostEffect->loadShader(PostVSFilename, PostFSFilename);
+
+
+
+
+	GLuint vertexShaderProgram = loadShaderFromFile(ShadowVSFilename, VERTEX_SHADER);
+
+	GLuint fragmentShaderProgram = loadShaderFromFile(ShadowFSFilename, FRAGMENT_SHADER);
+
+	m_shadowProgram = glCreateProgram();
+	glAttachShader(m_shadowProgram, vertexShaderProgram);
+	glAttachShader(m_shadowProgram, fragmentShaderProgram);
+	glLinkProgram(m_shadowProgram);
+	checkForLinkErrors(m_shadowProgram);
+
+	//now we can delete the VS & FS Programs
+	glDeleteShader(vertexShaderProgram);
+	glDeleteShader(fragmentShaderProgram);
+
+	logShaderInfo(m_shadowProgram);
 
 	
 }
@@ -341,6 +385,43 @@ void MyGame::render()
 
 	GameApplication::render();
 
+	GLuint Sampler = 0;
+
+	m_depthBuffer->bind();
+
+	glm::mat4 lightView;
+	glm::mat4 lightSpaceMatrix;
+
+	glm::vec3 lightPos(100.0f, -150.0f, 0.0f);
+
+	GLfloat near_plane = 1.0f, far_plane = 350.0f;
+	glm::mat4 lightProjection = glm::ortho(-150.0f, 150.0f, -150.0f, 150.0f, near_plane, far_plane);
+	lightView = glm::lookAt(lightPos,
+		glm::vec3(0.0f, 0.0f, 0.0f),
+		glm::vec3(0.0f, 1.0f, 0.0f));
+	lightSpaceMatrix = lightProjection * lightView;
+
+
+	for each (shared_ptr<GameObject> temp in GOList)
+	{
+		//GLuint currentShader = m_PostEffect->getShaderProgram();
+		glUseProgram(m_shadowProgram);
+		glUniformMatrix4fv(glGetUniformLocation(m_shadowProgram, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(m_shadowProgram, "model"), 1, GL_FALSE, glm::value_ptr(temp->getModelMatrix()));
+		temp->draw();
+	}
+	//get model uniform here
+
+	m_depthBuffer->unbind();
+
+	glViewport(0, 0, m_WindowWidth, m_WindowHeight);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+
+
+
+
 	m_PassThroughPostProcess->getBuffer()->bind();
 
 	
@@ -365,8 +446,37 @@ void MyGame::render()
 		GLint cameraPositionLocation = glGetUniformLocation(currentShader, "cameraPos");
 		glUniform3fv(cameraPositionLocation, 1, value_ptr(m_CameraPosition));
 
-		temp->onRender(m_ViewMatrix, m_ProjMatrix);
+		glUniformMatrix4fv(glGetUniformLocation(currentShader, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+		//glUniform3fv(glGetUniformLocation(currentShader, "lightPos"), 1, GL_FALSE, glm::value_ptr(vec2( 100.0f, 150.0f)));
+		GLint lightPositionLocation = glGetUniformLocation(currentShader, "lightPos");
+		glUniform3fv(lightPositionLocation, 1, value_ptr(lightPos));
 
+
+
+		GLuint m_ShadowTexture = m_depthBuffer->GetTexture();
+		//glActiveTexture(2);
+
+		glBindTexture(GL_TEXTURE_2D, m_ShadowTexture);
+
+
+		glGenerateMipmap(GL_TEXTURE_2D);
+
+		glGenSamplers(1, &Sampler);
+		glSamplerParameteri(Sampler, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glSamplerParameteri(Sampler, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glSamplerParameteri(Sampler, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glSamplerParameteri(Sampler, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+
+		glBindSampler(0, Sampler);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, m_ShadowTexture);
+		GLint shadowTex = glGetUniformLocation(currentShader, "shadowMap");
+		glUniform1i(shadowTex, 0);
+
+
+		temp->onRender(m_ViewMatrix, m_ProjMatrix);
+		temp->draw();
 		//GOList.pop_back();
 	}
 
