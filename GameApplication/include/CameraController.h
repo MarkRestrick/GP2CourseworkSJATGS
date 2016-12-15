@@ -24,22 +24,33 @@ public:
 		return m_CameraRotation.y;
 	};
 
-	vec3 collisionCheck(bool forwards)
+	vec3 collisionCheck(string direction);
+
+	void move(string direction);
+	void mouseRotation(float x, float y);
+
+	void onUpdate();
+
+	void setGrounded(bool grounded)
 	{
-		if (forwards)
-			return m_CameraPosition + vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)));
-		else
-			return m_CameraPosition - vec3(-sin(m_CameraRotation.y - radians(90.0f)), 0.0f, cos(m_CameraRotation.y - radians(90.0f)));
+		m_Grounded = grounded;
 	};
 
-	void moveForward();
-	void moveBackward();
-	void rotateCamera(float amount);
+	float getForce()
+	{
+		return m_Force;
+	};
 
+	void jump(bool debug);
+	void down();
 private:
 	vec3 m_CameraPosition;
 	vec3 m_CameraRotation;
 	vec3 m_CameraLookAtPosition;
+
+	bool m_Grounded;
+	float m_Force;
+	bool m_Jumping = false;
 };
 
 #endif

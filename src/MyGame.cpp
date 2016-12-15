@@ -42,7 +42,7 @@ void MyGame::initScene()
 	{
 		vec3(5.0f, 5.0f, 5.0f),
 		vec3(5.0f, 5.0f, 5.0f),
-		vec3(100.0f, 1.0f, 100.0f), //MR Floor
+		vec3(100.0f, 10.0f, 100.0f), //MR Floor
 		vec3(100.0f, 50.0f, 1.0f), //MR Back wall
 		vec3(1.0f, 50.0f, 100.0f), //MR left wall
 		vec3(1.0f, 50.0f, 100.0f) //MR Right wall
@@ -126,7 +126,7 @@ void MyGame::initScene()
 	*/
 
 
-	
+	/*
 	shared_ptr<PostProcess> post = shared_ptr<PostProcess>(new PostProcess());
 	string fsPostColourCorrectionFilename = ASSET_PATH + SHADER_PATH + "/SharpenFS.glsl";
 	post->create(m_WindowWidth, m_WindowHeight, fsPostColourCorrectionFilename);
@@ -142,6 +142,7 @@ void MyGame::initScene()
 	string fsPostColourInvertFS = ASSET_PATH + SHADER_PATH + "/colourInvertFS.glsl";
 	post->create(m_WindowWidth, m_WindowHeight, fsPostColourInvertFS);
 	addPostProcessingEffect(post);
+	*/
 	
 
 	
@@ -157,19 +158,19 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 			bool temp = false;
 			for each (shared_ptr<GameObject> gameObject in GOList)
 			{
-				if (gameObject->checkCollision(m_Camera->collisionCheck(true)))
+				if (gameObject->checkCollision(m_Camera->collisionCheck("Forward")))
 				{
 					temp = true;
 				}
 			}
 			if (!temp)
 			{
-				m_Camera->moveForward();
+				m_Camera->move("Forward");
 			}
 		}
 		else
 		{
-			m_Camera->moveForward();
+			m_Camera->move("Forward");
 		}
 	}
 	else if (keyCode == SDLK_s)
@@ -179,7 +180,7 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 			bool temp = false;
 			for each (shared_ptr<GameObject> gameObject in GOList)
 			{
-				if (gameObject->checkCollision(m_Camera->collisionCheck(false)))
+				if (gameObject->checkCollision(m_Camera->collisionCheck("Backward")))
 				{
 					temp = true;
 				}
@@ -187,25 +188,78 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 			}
 			if (!temp)
 			{
-				m_Camera->moveBackward();
+				m_Camera->move("Backward");
 			}
 
 		}
 		else
 		{
-			m_Camera->moveBackward();
+			m_Camera->move("Backward");
 		}
 	}
 
-		if (keyCode == SDLK_e)
+		if (keyCode == SDLK_a)
 		{
-			m_Camera->rotateCamera(3.0f);
+			if (!m_DebugMode)
+			{
+				bool temp = false;
+				for each (shared_ptr<GameObject> gameObject in GOList)
+				{
+					if (gameObject->checkCollision(m_Camera->collisionCheck("Left")))
+					{
+						temp = true;
+					}
+
+				}
+				if (!temp)
+				{
+					m_Camera->move("Left");
+				}
+
+			}
+			else
+			{
+				m_Camera->move("Right");
+			}
 		}
-		else if (keyCode == SDLK_q)
+		else if (keyCode == SDLK_d)
 		{
-			m_Camera->rotateCamera(-3.0f);
+			if (!m_DebugMode)
+			{
+				bool temp = false;
+				for each (shared_ptr<GameObject> gameObject in GOList)
+				{
+					if (gameObject->checkCollision(m_Camera->collisionCheck("Right")))
+					{
+						temp = true;
+					}
+
+				}
+				if (!temp)
+				{
+					m_Camera->move("Right");
+				}
+
+			}
+			else
+			{
+				m_Camera->move("Right");
+			}
 		}
 
+		if (keyCode == SDLK_SPACE)
+		{
+			m_Camera->jump(m_DebugMode);
+		}
+
+		if (keyCode == SDLK_LSHIFT)
+		{
+			if (m_DebugMode)
+			{
+				m_Camera->down();
+			}
+
+		}
 
 		if (keyCode == SDLK_p)
 		{
@@ -219,6 +273,12 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 			}
 
 		}
+
+}
+
+void MyGame::onMouseMove(float x, float y)
+{
+	m_Camera->mouseRotation(x, y);
 }
 
 
@@ -232,6 +292,7 @@ void MyGame::destroyScene()
 	{
 		temp->onDestroy();
 	}
+
 
 	/*
 	for(int i=0;i<&GOList.capacity;i++)
@@ -249,12 +310,27 @@ void MyGame::update()
 
 	m_ProjMatrix = perspective(radians(45.0f), (float)m_WindowWidth / (float)m_WindowHeight, 0.1f, 1000.0f);
 	m_ViewMatrix = lookAt(m_CameraPosition, m_CameraPosition + m_CameraLookAtPosition, vec3(0.0f, 1.0f, 0.0f));
-	
+
+	vec3 position = m_Camera->getCameraPosition();
+	bool tempBool = false;
+
 	//KS loop through vertor to update all ojs
 	for each (shared_ptr<GameObject> temp in GOList)
 	{
 		temp->onUpdate();
 		
+		if (temp->checkCollision(position - vec3(0.0f, 25.0f, 0.0f)))
+		{
+			tempBool = true;
+		}
+
+	}
+
+	m_Camera->setGrounded(tempBool);
+
+	if (!m_DebugMode)
+	{
+		m_Camera->onUpdate();
 	}
 }
 

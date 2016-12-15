@@ -156,6 +156,10 @@ void GameApplication::onKeyDown(SDL_Keycode keyCode)
 {
 }
 
+void GameApplication::onMouseMove(float x, float y)
+{
+}
+
 void GameApplication::OnQuit()
 {
 	destroyScene();
@@ -235,6 +239,10 @@ void GameApplication::run()
 						LOG(ERROR, "Can't Maximize %s", SDL_GetError());
 					}
 				}
+			}
+			if (event.type == SDL_MOUSEMOTION)
+			{
+				onMouseMove(event.motion.xrel, event.motion.yrel);
 			}
 			if (event.type == SDL_WINDOWEVENT)
 			{

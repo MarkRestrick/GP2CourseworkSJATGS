@@ -47,6 +47,7 @@ public:
 	virtual void destroyScene();
 
 	virtual void onKeyDown(SDL_Keycode keyCode);
+	virtual void onMouseMove(float x, float y);
 
 	void OnBeginRender();
 	void OnEndRender();

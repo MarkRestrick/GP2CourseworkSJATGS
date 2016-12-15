@@ -15,6 +15,7 @@ public:
 	void destroyScene();
 
 	void onKeyDown(SDL_Keycode keyCode);
+	void onMouseMove(float x, float y);
 
 	void addPostProcessingEffect(shared_ptr<PostProcess> post)
 	{
