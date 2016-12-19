@@ -35,8 +35,8 @@ void MyGame::initScene()
 	string modelPath [] {"/Earth.fbx", "/Earth.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx" };
 	string diffTextureFileName[]{"/bricks_diff.jpg","/TBall_Diff.jpg", "/floor.jpg", "/bricks_diff.jpg", "/bricks_diff.jpg", "/bricks_diff.jpg" , "/bricks_diff.jpg" };
 	string specTextureFilename[]{"/bricks_spec.png","/TBall_Spec.png", "/Floor_Spec.png", "/bricks_spec.png", "/bricks_spec.png", "/bricks_spec.png", "/bricks_spec.png" };
-	string normTextureFilename[]{"/bricks_norm.png","/TBall_Norm.png", "/Floor_N.png", "/bricks_norm.png", "/bricks_norm.png", "/bricks_norm.png", "/bricks_norm.png" };
-	string heightTextureFilename[]{"/bricks_height.png","/TBall_Height.png", "/Floor_H.png", "/bricks_height.png", "/bricks_height.png", "/bricks_height.png", "/bricks_height.png" };
+	string normTextureFilename[]{"/bricks_norm.png","none", "none", "/bricks_norm.png", "/bricks_norm.png", "/bricks_norm.png", "/bricks_norm.png" };
+	string heightTextureFilename[]{"/bricks_height.png","none", "none", "/bricks_height.png", "none", "/bricks_height.png", "/bricks_height.png" };
 
 	//string vsFilenameContainter[] { light, lightex, normal, parallax} MRKS Later optimisation, save objects and call via define
 
@@ -83,9 +83,18 @@ void MyGame::initScene()
 		{
 			normTextureFilename[i] = textureFP + normTextureFilename[i];
 		}
+		else
+		{
+			normTextureFilename[i] = textureFP + "/White.png";
+		}
+
 		if (heightTextureFilename[i] != "none")
 		{
 			heightTextureFilename[i] = textureFP + heightTextureFilename[i];
+		}
+		else
+		{
+			heightTextureFilename[i] = textureFP + "/White.png";
 		}
 
 

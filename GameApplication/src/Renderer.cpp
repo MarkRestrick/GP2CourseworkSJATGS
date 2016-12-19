@@ -82,7 +82,7 @@ void Renderer::onDestroy()
 	glDeleteProgram(m_ShaderProgram);
 }
 
-void Renderer::onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMatrix, int numberOfIndices, GLuint VBO, GLuint EBO, bool Height)
+void Renderer::onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMatrix, int numberOfIndices, GLuint VBO, GLuint EBO)
 {
 
 	GLuint shaderProgram = m_ShaderProgram;
@@ -109,7 +109,7 @@ void Renderer::onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMat
 	glBindTexture(GL_TEXTURE_2D, m_SpecularTexture);
 	GLint diffTextureLocation = glGetUniformLocation(shaderProgram, "specularSampler");
 	glUniform1i(diffTextureLocation, 1);
-
+	
 	glBindSampler(2, m_Sampler);
 	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, m_NormalTexture);
@@ -123,7 +123,6 @@ void Renderer::onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMat
 		glBindTexture(GL_TEXTURE_2D, m_HeightTexture);
 		GLint heightTextureLocation = glGetUniformLocation(shaderProgram, "heightMap");
 		glUniform1i(heightTextureLocation, 3);
-
 
 
 

@@ -58,7 +58,6 @@ private:
 	Renderer m_GameObjectRenderer;
 	Mesh m_GameObjectMesh;
 	BoxCollider m_GameObjectCollider;
-	bool m_Height = false;
 
 	string parallaxFS = "assets/shaders/parallaxMappingFS2.glsl";
 	string parallaxVS = "assets/shaders/parallaxMappingVS2.glsl";
