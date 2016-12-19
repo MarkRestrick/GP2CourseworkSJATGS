@@ -24,12 +24,9 @@ void MyGame::initScene()
 {	
 
 
-	//shared_ptr<GameObject> OjArray[]{m_TestGO};
-
+	//Set up the camera
 	m_Camera = shared_ptr<CameraController>(new CameraController);
-	//Camera
-
-
+	
 
 	//KS Changed to Array and vector that can be iterated through
 	string modelPath [] {"/Earth.fbx", "/Earth.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx" };
@@ -38,47 +35,41 @@ void MyGame::initScene()
 	string normTextureFilename[]{"/bricks_norm.png","none", "none", "/bricks_norm.png", "/bricks_norm.png", "/bricks_norm.png", "/bricks_norm.png" };
 	string heightTextureFilename[]{"/bricks_height.png","none", "none", "/bricks_height.png", "none", "/bricks_height.png", "/bricks_height.png" };
 
-	//string vsFilenameContainter[] { light, lightex, normal, parallax} MRKS Later optimisation, save objects and call via define
-
 	vec3 scale[]
 	{
 		vec3(5.0f, 5.0f, 5.0f),
 		vec3(5.0f, 5.0f, 5.0f),
-		vec3(200.0f, 10.0f, 200.0f), //MR Floor
-		vec3(100.0f, 50.0f, 1.0f), //MR Back wall
-		vec3(1.0f, 50.0f, 100.0f), //MR left wall
-		vec3(1.0f, 50.0f, 100.0f) //MR Right wall
+		vec3(200.0f, 10.0f, 200.0f),
+		vec3(100.0f, 50.0f, 1.0f),
+		vec3(1.0f, 50.0f, 100.0f), 
+		vec3(1.0f, 50.0f, 100.0f) 
 	};
 	vec3 position[]
 	{
 		vec3(25.0f, 5.0f, 5.0f),
 		vec3(0.0f, 20.0f, 50.0f),
-		vec3(0.0f, 0.0f, -50.0f), //MR Floor
-		vec3(0.0f, 25.0f, 0.0f), //MR Back Wall
-		vec3(-50.0f, 25.0f, 0.0f), //MR left wall
-		vec3(50.0f, 25.0f, 0.0f) //MR right wall
-
-
+		vec3(0.0f, 0.0f, -50.0f), 
+		vec3(0.0f, 25.0f, 0.0f), 
+		vec3(-50.0f, 25.0f, 0.0f), 
+		vec3(50.0f, 25.0f, 0.0f) 
 	};
 	vec3 rotation[]
 	{
 		vec3(0.0f, 0.0f, 0.0f),
 		vec3(0.0f, 0.0f, 0.0f),
-		vec3(0.0f, 0.0f, 0.0f), //MR Floor
-		vec3(0.0f, 0.0f, 0.0f), //MR Back Wall
-		vec3(0.0f, 0.0f, 0.0f), //MR left wall
+		vec3(0.0f, 0.0f, 0.0f), 
+		vec3(0.0f, 0.0f, 0.0f), 
+		vec3(0.0f, 0.0f, 0.0f), 
 		vec3(0.0f, 0.0f, 0.0f)
-
 	};
 
 	
+	int arrayLength = sizeof(modelPath) / sizeof(modelPath[0]); //Get the length of the array
 
-	
-
-	int arrayLength = sizeof(modelPath) / sizeof(modelPath[0]);
-
+	//Iterate through the array
 	for (int i = 0; i < arrayLength; i++)
 	{
+		//If it has a normal texture, use it, otherwise replace with whitespace
 		if (normTextureFilename[i] != "none")
 		{
 			normTextureFilename[i] = textureFP + normTextureFilename[i];
@@ -88,6 +79,7 @@ void MyGame::initScene()
 			normTextureFilename[i] = textureFP + "/White.png";
 		}
 
+		//If it has a normal texture, use it, otherwise replace with whitespace
 		if (heightTextureFilename[i] != "none")
 		{
 			heightTextureFilename[i] = textureFP + heightTextureFilename[i];
@@ -97,110 +89,33 @@ void MyGame::initScene()
 			heightTextureFilename[i] = textureFP + "/White.png";
 		}
 
-
+		//Load the model, shaders and set the transform before adding it to the list of gameobjects
 		m_TestGO = shared_ptr<GameObject>(loadModelFromFile(modelFP+modelPath[i]));
-		//shaderFP+vsFilename[i], shaderFP+fsFilename[i], 
 		m_TestGO->loadShadersAndTextures(textureFP+diffTextureFileName[i], textureFP+specTextureFilename[i], normTextureFilename[i], heightTextureFilename[i]);
-		//m_TestGO->setTransform(vec3(5.0f, 5.0f, 5.0f), vec3(i*25.0f, i*10.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f));
-		//m_TestGO->addChild(m_TestGO);
 		m_TestGO->setTransform(scale[i],position[i],rotation[i]);
 		GOList.push_back(m_TestGO);
 	}
 
+	//Set the camera starting values
 	m_CameraRotation = vec3(0.0f, radians(180.0f), 0.0f);
 	m_CameraPosition = vec3(0.0f, 25.0f, 150.0f);
 	m_CameraLookAtPosition = vec3(cos(m_CameraRotation.y), 0, sin(m_CameraRotation.y));
 
+	//Set up the light for the scene
 	m_Light = shared_ptr<Light>(new Light());
 	m_Light->DiffuseColour = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_Light->SpecularColour = vec4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_Light->Direction = vec3(0.0f, 0.0f, -1.0f);
 	m_AmbientLightColour = vec4(0.5f, 0.5f, 0.5f, 1.0f);
 
-	/*
-	m_PostBuffer = shared_ptr<PostProcessBuffer>(new PostProcessBuffer());
-	m_PostBuffer->create(m_WindowWidth, m_WindowHeight);
-
-	m_ScreenAlignedQuad = shared_ptr<ScreenAlignedQuad>(new ScreenAlignedQuad());
-	m_ScreenAlignedQuad->create();
-	*/
-
-
-	/*
-	const std::string ASSET_PATH = "assets";
-	const std::string SHADER_PATH = "/shaders";
-	string fsPostFilename = ASSET_PATH + SHADER_PATH + "/colourFilterFS.glsl";
-	
-
-	m_PostEffect = shared_ptr<PostProcessingEffect>(new PostProcessingEffect());
-	m_PostEffect->loadShader(fsPostFilename);
-	*/
-	
-
-
-
-
-
-	/*
-	m_PassThroughPostProcess2 = unique_ptr<PostProcess>(new PostProcess());
-	m_PassThroughPostProcess2->create(m_WindowWidth, m_WindowHeight, ASSET_PATH + SHADER_PATH + "/sharpenFS.glsl");
-	*/
-
-	/*
-	if (m_Sharpen)
-	{
-		cout << "0";
-		shared_ptr<PostProcess> post = shared_ptr<PostProcess>(new PostProcess());
-		string fsPostColourCorrectionFilename = ASSET_PATH + SHADER_PATH + "/SharpenFS.glsl";
-		post->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourCorrectionFilename);
-		addPostProcessingEffect(post);
-	}
-
-	*/
-
-	/*
-
-	post = shared_ptr<PostProcess>(new PostProcess());
-	string fsPostColourFilterFS = ASSET_PATH + SHADER_PATH + "/colourFilterFS.glsl";
-	post->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourFilterFS);
-	addPostProcessingEffect(post);
-	
-
-	post = shared_ptr<PostProcess>(new PostProcess());
-	string fsPostColourInvertFS = ASSET_PATH + SHADER_PATH + "/colourInvertFS.glsl";
-	post->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourInvertFS);
-	addPostProcessingEffect(post);
-	*/
-
-
-
-
+	//Create the depth buffer object to be used for shadow mapping
 	m_depthBuffer = shared_ptr<depthFrameBuffer>(new depthFrameBuffer());
 	m_depthBuffer->create();
 
-
-	//string vsPostFilename = ASSET_PATH + SHADER_PATH + "/postProcessingVS.glsl";
 	string ShadowVSFilename = ASSET_PATH + SHADER_PATH + "/simpleDepthShaderVS.glsl";
-
-
-	//string fsPostFilename = ASSET_PATH + SHADER_PATH + "/colourFilterFS.glsl";
-	//string fsPostFilename = ASSET_PATH + SHADER_PATH + "/sharpenFS.glsl";
-	//string fsPostFilename = ASSET_PATH + SHADER_PATH + "/blurFS.glsl";
 	string ShadowFSFilename = ASSET_PATH + SHADER_PATH + "/simpleDepthShaderFS.glsl";
 
-
-
-	m_PassThroughPostProcess = unique_ptr<PostProcess>(new PostProcess());
-	m_PassThroughPostProcess->create(m_WindowWidth, m_WindowHeight, PostVSFilename, PostFSFilename);
-
-	//m_PostEffect = shared_ptr<PostProcessingEffect>(new PostProcessingEffect());
-	//m_PostEffect->loadShader(PostVSFilename, PostFSFilename);
-
-
-
-
 	GLuint vertexShaderProgram = loadShaderFromFile(ShadowVSFilename, VERTEX_SHADER);
-
 	GLuint fragmentShaderProgram = loadShaderFromFile(ShadowFSFilename, FRAGMENT_SHADER);
 
 	m_shadowProgram = glCreateProgram();
@@ -214,6 +129,15 @@ void MyGame::initScene()
 	glDeleteShader(fragmentShaderProgram);
 
 	logShaderInfo(m_shadowProgram);
+
+	//Set up the first post processing object, which will return a screen aligned quad with the scene drawn onto it
+	m_PassThroughPostProcess = unique_ptr<PostProcess>(new PostProcess());
+	m_PassThroughPostProcess->create(m_WindowWidth, m_WindowHeight, PostVSFilename, PostFSFilename);
+
+
+
+
+	
 
 	
 }
@@ -346,11 +270,12 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 
 		if (keyCode == SDLK_1)
 		{
+			//If sharpen isn't active, activate it, if it is, remove it from the post process list
 			if (!m_Sharpen)
 			{
 				shared_ptr<PostProcess> postsharpen = shared_ptr<PostProcess>(new PostProcess());
-				string fsPostColourCorrectionFilename = ASSET_PATH + SHADER_PATH + "/SharpenFS.glsl";
-				postsharpen->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourCorrectionFilename);
+				string fsSharpenFilename = ASSET_PATH + SHADER_PATH + "/SharpenFS.glsl";
+				postsharpen->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsSharpenFilename);
 				addPostProcessingEffect(postsharpen);
 				m_Sharpen = true;
 			}
@@ -361,7 +286,6 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 					if (m_PostProcessChain[i]->getFS() == ASSET_PATH + SHADER_PATH + "/SharpenFS.glsl")
 					{
 						m_PostProcessChain.erase(m_PostProcessChain.begin()+i);
-						//m_PostProcessChain.pop_back();
 					}
 					
 					
@@ -374,10 +298,10 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 		{
 			if (!m_Blur)
 			{
-				shared_ptr<PostProcess> postsharpen = shared_ptr<PostProcess>(new PostProcess());
-				string fsPostColourCorrectionFilename = ASSET_PATH + SHADER_PATH + "/blurFS.glsl";
-				postsharpen->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourCorrectionFilename);
-				addPostProcessingEffect(postsharpen);
+				shared_ptr<PostProcess> postBlur = shared_ptr<PostProcess>(new PostProcess());
+				string fsPostBlurFilename = ASSET_PATH + SHADER_PATH + "/blurFS.glsl";
+				postBlur->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostBlurFilename);
+				addPostProcessingEffect(postBlur);
 				m_Blur = true;
 			}
 			else
@@ -387,7 +311,6 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 					if (m_PostProcessChain[i]->getFS() == ASSET_PATH + SHADER_PATH + "/blurFS.glsl")
 					{
 						m_PostProcessChain.erase(m_PostProcessChain.begin() + i);
-						//m_PostProcessChain.pop_back();
 					}
 
 
@@ -400,10 +323,10 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 		{
 			if (!m_Invert)
 			{
-				shared_ptr<PostProcess> postsharpen = shared_ptr<PostProcess>(new PostProcess());
-				string fsPostColourCorrectionFilename = ASSET_PATH + SHADER_PATH + "/colourInvertFS.glsl";
-				postsharpen->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourCorrectionFilename);
-				addPostProcessingEffect(postsharpen);
+				shared_ptr<PostProcess> postColourInvert = shared_ptr<PostProcess>(new PostProcess());
+				string fsPostColourInvertFilename = ASSET_PATH + SHADER_PATH + "/colourInvertFS.glsl";
+				postColourInvert->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourInvertFilename);
+				addPostProcessingEffect(postColourInvert);
 				m_Invert = true;
 			}
 			else
@@ -413,7 +336,6 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 					if (m_PostProcessChain[i]->getFS() == ASSET_PATH + SHADER_PATH + "/colourInvertFS.glsl")
 					{
 						m_PostProcessChain.erase(m_PostProcessChain.begin() + i);
-						//m_PostProcessChain.pop_back();
 					}
 
 
@@ -426,10 +348,10 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 		{
 			if (!m_ColourCorrect)
 			{
-				shared_ptr<PostProcess> postsharpen = shared_ptr<PostProcess>(new PostProcess());
-				string fsPostColourCorrectionFilename = ASSET_PATH + SHADER_PATH + "/ColourFilterFS.glsl";
-				postsharpen->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourCorrectionFilename);
-				addPostProcessingEffect(postsharpen);
+				shared_ptr<PostProcess> postFilter = shared_ptr<PostProcess>(new PostProcess());
+				string fsPostColourFilterFilename = ASSET_PATH + SHADER_PATH + "/ColourFilterFS.glsl";
+				postFilter->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourFilterFilename);
+				addPostProcessingEffect(postFilter);
 				m_ColourCorrect = true;
 			}
 			else
@@ -439,7 +361,6 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 					if (m_PostProcessChain[i]->getFS() == ASSET_PATH + SHADER_PATH + "/ColourFilterFS.glsl")
 					{
 						m_PostProcessChain.erase(m_PostProcessChain.begin() + i);
-						//m_PostProcessChain.pop_back();
 					}
 
 
@@ -468,14 +389,6 @@ void MyGame::destroyScene()
 		temp->onDestroy();
 	}
 
-
-	/*
-	for(int i=0;i<&GOList.capacity;i++)
-	{
-		m_TestGO->onDestroy();
-		GOList.pop_back();
-	}
-	*/
 	
 }
 
@@ -524,13 +437,11 @@ void MyGame::render()
 
 	GameApplication::render();
 
+	//Set up values for our shadow projection matrix
 	GLuint Sampler = 0;
-
-	m_depthBuffer->bind();
 
 	glm::mat4 lightView;
 	glm::mat4 lightSpaceMatrix;
-
 	glm::vec3 lightPos(100.0f, 150.0f, 0.0f);
 
 	GLfloat near_plane = 1.0f, far_plane = 1000.0f;
@@ -540,38 +451,33 @@ void MyGame::render()
 		glm::vec3(0.0f, 1.0f, 0.0f));
 	lightSpaceMatrix = lightProjection * lightView;
 
-
+	//Set opengl to render to the shadow fbo, to make the shadow map
+	m_depthBuffer->bind();
 	for each (shared_ptr<GameObject> temp in GOList)
 	{
-		//GLuint currentShader = m_PostEffect->getShaderProgram();
 		glUseProgram(m_shadowProgram);
 		glUniformMatrix4fv(glGetUniformLocation(m_shadowProgram, "lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
 		glUniformMatrix4fv(glGetUniformLocation(m_shadowProgram, "model"), 1, GL_FALSE, glm::value_ptr(temp->getModelMatrix()));
 		temp->draw();
 	}
-	//get model uniform here
-
 	m_depthBuffer->unbind();
+	//Bring it to the front
 
 
 
 	
-
+	//Reset the viewport/buffers
 	glViewport(0, 0, m_WindowWidth, m_WindowHeight);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
+	
 	
 
 
-
+	//Get ready for the actual render pass
 	m_PassThroughPostProcess->getBuffer()->bind();
 
-
-
-	
-
-	//KS loop through vertor to render all ojs
+	//KS loop through vector to render all ojs
 	for each (shared_ptr<GameObject> temp in GOList)
 	{
 		GLuint currentShader = temp->getShaderProgram();
@@ -597,7 +503,7 @@ void MyGame::render()
 		glUniform3fv(lightPositionLocation, 1, value_ptr(lightPos));
 
 
-
+		//Grab the shadowmap and set opengl to be working with texture 8
 		GLuint m_ShadowTexture = m_depthBuffer->GetTexture();
 		glActiveTexture(8);
 
@@ -613,7 +519,7 @@ void MyGame::render()
 		glSamplerParameteri(Sampler, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glSamplerParameteri(Sampler, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-
+		//Pass in the shadowmap to be used in the fragment shader
 		glBindSampler(8, Sampler);
 		glActiveTexture(GL_TEXTURE8);
 		glBindTexture(GL_TEXTURE_2D, m_ShadowTexture);
@@ -625,15 +531,13 @@ void MyGame::render()
 
 		temp->onRender(m_ViewMatrix, m_ProjMatrix);
 		temp->draw();
-		//GOList.pop_back();
 	}
 
-
-	
 	m_PassThroughPostProcess->getBuffer()->unbind();
+	//Bring everything to the front
 
 	
-
+	//Set up the first post process effect (Draw everything to a screen aligned quad)
 	m_PassThroughPostProcess->getEffect()->bind();
 	GLuint currentShader = m_PassThroughPostProcess->getEffect()->getShaderProgram();
 	GLint textureLocation = glGetUniformLocation(currentShader, "texture0");
@@ -642,40 +546,20 @@ void MyGame::render()
 	glUniform1i(textureLocation, 0);
 
 
-	
-
-	//m_PassThroughPostProcess2->getBuffer()->bind();
-
+	//If there are more effects to come, prep the first one
 	if (m_PostProcessChain.size() > 0)
 	{
 		m_PostProcessChain[0]->getBuffer()->bind();
 	}
 	
-
+	//Draw the screen aligned quad, will be captured by the next effect
 	m_PassThroughPostProcess->getQuad()->render();
 	m_PassThroughPostProcess->getBuffer()->unbind();
 
-
-	
-	//m_PassThroughPostProcess2->getEffect()->bind(); //PP2
-
-
-	/*
-	GLuint currentShader2 = m_PassThroughPostProcess2->getEffect()->getShaderProgram();
-	GLint textureLocation2 = glGetUniformLocation(currentShader2, "texture0");
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, m_PassThroughPostProcess2->getBuffer()->GetTexture());
-	glUniform1i(textureLocation2, 0);
-
-	m_PassThroughPostProcess2->getQuad()->render();
-	m_PassThroughPostProcess2->getBuffer()->unbind();
-	*/
-
-	
+	//Loop through all post processing effects, one at a time, always checking if there is another one to come after
 	for (int i = 0; i < m_PostProcessChain.size(); i++)
 	{
 
-		//post->getBuffer()->bind();
 		m_PostProcessChain[i]->getEffect()->bind();
 		GLuint currentShader = m_PostProcessChain[i]->getEffect()->getShaderProgram();
 
@@ -692,13 +576,5 @@ void MyGame::render()
 		m_PostProcessChain[i]->getBuffer()->unbind();
 	}
 	
-	
 
-	//m_PostBuffer->unbind();
-
-
-
-	
-
-	//Do above again but with out the object for loop
 }

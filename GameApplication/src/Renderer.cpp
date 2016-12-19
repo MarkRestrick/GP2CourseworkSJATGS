@@ -23,6 +23,7 @@ Renderer::~Renderer()
 {
 }
 
+//Loads FS and VS for normal rendering
 void Renderer::loadShaders(const string & vsFilename, const string & fsFilename)
 {
 	GLuint vertexShaderProgram = loadShaderFromFile(vsFilename, VERTEX_SHADER);
@@ -82,14 +83,12 @@ void Renderer::onDestroy()
 	glDeleteProgram(m_ShaderProgram);
 }
 
+//Render a given object
 void Renderer::onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMatrix, int numberOfIndices, GLuint VBO, GLuint EBO)
 {
 
 	GLuint shaderProgram = m_ShaderProgram;
 	glUseProgram(shaderProgram);
-	//glBindVertexArray(VAO);
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
 	GLint MVPLocation = glGetUniformLocation(shaderProgram, "MVP");
 	mat4 MVP = projection*view*modelMatrix;
@@ -139,10 +138,9 @@ void Renderer::onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMat
 	GLint specularPowerLocation = glGetUniformLocation(shaderProgram, "specularPower");
 	glUniform1f(specularPowerLocation, m_SpecularMaterialPower);
 
-	//glDrawElements(GL_TRIANGLES, numberOfIndices, GL_UNSIGNED_INT, NULL);
-
 }
 
+//Draw a given object (No rendering)
 void Renderer::draw(GLuint VAO, GLuint VBO, GLuint EBO, int numberOfIndices)
 {
 	glBindVertexArray(VAO);

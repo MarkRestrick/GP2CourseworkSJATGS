@@ -19,10 +19,6 @@ Transform::~Transform()
 
 void Transform::TransformUpdate()
 {
-	/*
-	cout << "Test";
-	std::cout << glm::to_string(m_Scale) << std::endl;
-	*/
 	m_ScaleMatrix = scale(m_Scale);
 	m_RotationMatrix = eulerAngleYXZ(m_Rotation.y, m_Rotation.x, m_Rotation.z);
 	m_TranslationMatrix = translate(getPosition());

@@ -13,10 +13,7 @@ GameObject::~GameObject()
 }
 void GameObject::onUpdate()
 {
-	//mat4 rotationXMatrix = ::rotate(radians(m_Rotation.x), vec3(1.0f, 0.0f, 0.0f));
-	//mat4 rotationYMatrix = ::rotate(radians(m_Rotation.y), vec3(0.0f, 1.0f, 0.0f));
-	//mat4 rotationZMatrix = ::rotate(radians(m_Rotation.z), vec3(0.0f, 0.0f, 1.0f));
-	//m_RotationMatrix = rotationXMatrix*rotationYMatrix*rotationZMatrix;
+
 	m_GameObjectTransform.TransformUpdate(); 
 
 	m_ModelMatrix = m_GameObjectTransform.getModelMatrix();
@@ -24,7 +21,7 @@ void GameObject::onUpdate()
 	{
 		m_ModelMatrix *= m_pParent->getModelMatrix();
 	}
-	// And this is where we proved we're not retarded m_GameObjectTransform.TransformUpdate();
+	
 
 	m_GameObjectCollider.setTransform(m_GameObjectTransform.getPosition(), m_GameObjectTransform.getScale());
 }
@@ -62,7 +59,7 @@ void GameObject::rotate(const vec3 & delta)
 	//m_Rotation += delta;
 }
 
-//KS function to set transform
+//function to set transform
 void GameObject::setTransform(vec3 scale, vec3 pos, vec3 rot)
 {
 	m_GameObjectTransform.setScale(scale);
@@ -70,8 +67,8 @@ void GameObject::setTransform(vec3 scale, vec3 pos, vec3 rot)
 	m_GameObjectTransform.setRotation(rot);
 }
 
-//KS function to set sharders and textures
-//const string & vsFilename, const string & fsFilename, 
+//function to set sharders and textures
+
 void GameObject::loadShadersAndTextures(const string & diffFilename, const string & spFilename, const string & norFilename, const string & heigFilename)
 {
 

@@ -12,6 +12,7 @@ PostProcess::~PostProcess()
 
 }
 
+//Stores everything needed to create a post processing effect
 bool PostProcess::create(int bufferWidth, int bufferHeight, const string& vsFilename, const string& fsFilename)
 {
 	m_fs = fsFilename;

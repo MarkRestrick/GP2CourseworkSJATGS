@@ -13,6 +13,7 @@ PostProcessBuffer::~PostProcessBuffer()
 
 }
 
+//Sets up FBOs to be used for post processing
 bool PostProcessBuffer::create(unsigned int width, unsigned int height)
 {
 	glGenSamplers(1, &m_Sampler);
@@ -54,6 +55,8 @@ void PostProcessBuffer::destroy()
 	glDeleteSamplers(1, &m_Sampler);
 }
 
+
+//Sets OpenGL to render to backbuffer
 void PostProcessBuffer::bind()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, m_Framebuffer);
@@ -63,6 +66,7 @@ void PostProcessBuffer::bind()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+//Brings openGL back to the frontbuffer
 void PostProcessBuffer::unbind()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);

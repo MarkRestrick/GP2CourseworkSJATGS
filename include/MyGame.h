@@ -25,8 +25,7 @@ public:
 protected:
 
 	unique_ptr<PostProcess> m_PassThroughPostProcess;
-	//unique_ptr<PostProcess> m_PassThroughPostProcess2;
-	vector < shared_ptr<PostProcess> > m_PostProcessChain;
+	vector < shared_ptr<PostProcess> > m_PostProcessChain; //Vector of all post processing effects to be carried out on this frame
 	shared_ptr<depthFrameBuffer> m_depthBuffer;
 	//Post Processing
 
@@ -41,7 +40,7 @@ private:
 
 	shared_ptr<GameObject> m_TestGO;
 
-	vector<shared_ptr<GameObject> > GOList;//KS
+	vector<shared_ptr<GameObject> > GOList;
 	
 	shared_ptr<Light> m_Light;
 	vec4 m_AmbientLightColour;
@@ -56,6 +55,8 @@ private:
 	string PostVSFilename = "assets/shaders/postProcessingVS.glsl";
 	string PostFSFilename = "assets/shaders/simplePostProcessFS.glsl";
 
+
+	//Boolean trackers for which effects are active
 	bool m_Sharpen = false;
 	bool m_Blur = false;
 	bool m_Invert = false;

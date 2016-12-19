@@ -23,6 +23,7 @@ PostProcessingEffect::~PostProcessingEffect()
 {
 }
 
+//Loads shaders to be used in post processing
 bool PostProcessingEffect::loadShader(const string & FSFilename)
 {
 	GLuint vertexShaderProgram = loadShaderFromMemory(postProcessingVSShaderCode.c_str(), VERTEX_SHADER);

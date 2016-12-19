@@ -22,6 +22,7 @@ void Mesh::onDestroy()
 	glDeleteBuffers(1, &m_VBO);
 }
 
+//Grab the model's vertex data
 void Mesh::copyVertexData(Vertex * pVertex, int numberOfVertices, int * pIndices, int numberOfIndices)
 {
 	m_NumberOfVerts = numberOfVertices;
