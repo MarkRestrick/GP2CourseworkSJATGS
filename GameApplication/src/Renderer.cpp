@@ -82,7 +82,7 @@ void Renderer::onDestroy()
 	glDeleteProgram(m_ShaderProgram);
 }
 
-void Renderer::onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMatrix, int numberOfIndices, GLuint VBO, GLuint EBO)
+void Renderer::onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMatrix, int numberOfIndices, GLuint VBO, GLuint EBO, bool Height)
 {
 
 	GLuint shaderProgram = m_ShaderProgram;
@@ -116,11 +116,15 @@ void Renderer::onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMat
 	GLint normTextureLocation = glGetUniformLocation(shaderProgram, "normalSampler");
 	glUniform1i(normTextureLocation, 2);
 
-	glBindSampler(3, m_Sampler);
-	glActiveTexture(GL_TEXTURE3);
-	glBindTexture(GL_TEXTURE_2D,m_HeightTexture);
-	GLint heightTextureLocation = glGetUniformLocation(shaderProgram, "heightMap");
-	glUniform1i(heightTextureLocation, 3);
+
+
+		glBindSampler(3, m_Sampler);
+		glActiveTexture(GL_TEXTURE3);
+		glBindTexture(GL_TEXTURE_2D, m_HeightTexture);
+		GLint heightTextureLocation = glGetUniformLocation(shaderProgram, "heightMap");
+		glUniform1i(heightTextureLocation, 3);
+
+
 
 
 	GLint ambientLocation = glGetUniformLocation(shaderProgram, "ambientMaterialColour");

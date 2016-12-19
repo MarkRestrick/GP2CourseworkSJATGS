@@ -8,6 +8,8 @@ const std::string SHADER_PATH = "/shaders";
 const std::string TEXTURE_PATH = "/textures";
 const std::string MODEL_PATH = "/models";
 
+
+
 MyGame::MyGame()
 {
 	//m_TestGO = nullptr;
@@ -20,15 +22,17 @@ MyGame::~MyGame()
 
 void MyGame::initScene()
 {	
+
+
 	//shared_ptr<GameObject> OjArray[]{m_TestGO};
 
 	m_Camera = shared_ptr<CameraController>(new CameraController);
 	//Camera
 
+
+
 	//KS Changed to Array and vector that can be iterated through
 	string modelPath [] {"/Earth.fbx", "/Earth.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx", "/unitCube.fbx" };
-	string vsFilename[] {"/parallaxMappingVS2.glsl" ,"/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl", "/parallaxMappingVS2.glsl" };
-	string fsFilename[] {"/parallaxMappingFS2.glsl" ,"/parallaxMappingFS2.glsl", "/parallaxMappingFS2.glsl", "/parallaxMappingFS2.glsl", "/parallaxMappingFS2.glsl", "/parallaxMappingFS2.glsl" , "/parallaxMappingFS2.glsl" };
 	string diffTextureFileName[]{"/bricks_diff.jpg","/TBall_Diff.jpg", "/floor.jpg", "/bricks_diff.jpg", "/bricks_diff.jpg", "/bricks_diff.jpg" , "/bricks_diff.jpg" };
 	string specTextureFilename[]{"/bricks_spec.png","/TBall_Spec.png", "/Floor_Spec.png", "/bricks_spec.png", "/bricks_spec.png", "/bricks_spec.png", "/bricks_spec.png" };
 	string normTextureFilename[]{"/bricks_norm.png","/TBall_Norm.png", "/Floor_N.png", "/bricks_norm.png", "/bricks_norm.png", "/bricks_norm.png", "/bricks_norm.png" };
@@ -36,13 +40,11 @@ void MyGame::initScene()
 
 	//string vsFilenameContainter[] { light, lightex, normal, parallax} MRKS Later optimisation, save objects and call via define
 
-	
-
 	vec3 scale[]
 	{
 		vec3(5.0f, 5.0f, 5.0f),
 		vec3(5.0f, 5.0f, 5.0f),
-		vec3(100.0f, 10.0f, 100.0f), //MR Floor
+		vec3(1000.0f, 10.0f, 1000.0f), //MR Floor
 		vec3(100.0f, 50.0f, 1.0f), //MR Back wall
 		vec3(1.0f, 50.0f, 100.0f), //MR left wall
 		vec3(1.0f, 50.0f, 100.0f) //MR Right wall
@@ -77,16 +79,26 @@ void MyGame::initScene()
 
 	for (int i = 0; i < arrayLength; i++)
 	{
-		m_TestGO = shared_ptr<GameObject>(loadModelFromFile(modelFP+modelPath[i]));
+		if (normTextureFilename[i] != "none")
+		{
+			normTextureFilename[i] = textureFP + normTextureFilename[i];
+		}
+		if (heightTextureFilename[i] != "none")
+		{
+			heightTextureFilename[i] = textureFP + heightTextureFilename[i];
+		}
 
-		m_TestGO->loadShadersAndTextures(shaderFP+vsFilename[i], shaderFP+fsFilename[i], textureFP+diffTextureFileName[i], textureFP+specTextureFilename[i], textureFP+normTextureFilename[i], textureFP+heightTextureFilename[i]);
+
+		m_TestGO = shared_ptr<GameObject>(loadModelFromFile(modelFP+modelPath[i]));
+		//shaderFP+vsFilename[i], shaderFP+fsFilename[i], 
+		m_TestGO->loadShadersAndTextures(textureFP+diffTextureFileName[i], textureFP+specTextureFilename[i], normTextureFilename[i], heightTextureFilename[i]);
 		//m_TestGO->setTransform(vec3(5.0f, 5.0f, 5.0f), vec3(i*25.0f, i*10.0f, 0.0f), vec3(0.0f, 0.0f, 0.0f));
 		//m_TestGO->addChild(m_TestGO);
 		m_TestGO->setTransform(scale[i],position[i],rotation[i]);
 		GOList.push_back(m_TestGO);
 	}
 
-	m_CameraRotation = vec3(0.0f, 0.0f, 0.0f);
+	m_CameraRotation = vec3(0.0f, radians(180.0f), 0.0f);
 	m_CameraPosition = vec3(0.0f, 25.0f, 150.0f);
 	m_CameraLookAtPosition = vec3(cos(m_CameraRotation.y), 0, sin(m_CameraRotation.y));
 
@@ -125,14 +137,14 @@ void MyGame::initScene()
 	m_PassThroughPostProcess2->create(m_WindowWidth, m_WindowHeight, ASSET_PATH + SHADER_PATH + "/sharpenFS.glsl");
 	*/
 
-
+	/*
 	
 	shared_ptr<PostProcess> post = shared_ptr<PostProcess>(new PostProcess());
 	string fsPostColourCorrectionFilename = ASSET_PATH + SHADER_PATH + "/SharpenFS.glsl";
 	post->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourCorrectionFilename);
 	addPostProcessingEffect(post);
 
-	/*
+	
 
 	post = shared_ptr<PostProcess>(new PostProcess());
 	string fsPostColourFilterFS = ASSET_PATH + SHADER_PATH + "/colourFilterFS.glsl";
@@ -392,12 +404,12 @@ void MyGame::render()
 	glm::mat4 lightView;
 	glm::mat4 lightSpaceMatrix;
 
-	glm::vec3 lightPos(100.0f, -150.0f, 0.0f);
+	glm::vec3 lightPos(100.0f, 150.0f, 0.0f);
 
-	GLfloat near_plane = 1.0f, far_plane = 350.0f;
-	glm::mat4 lightProjection = glm::ortho(-150.0f, 150.0f, -150.0f, 150.0f, near_plane, far_plane);
+	GLfloat near_plane = 1.0f, far_plane = 1000.0f;
+	glm::mat4 lightProjection = glm::ortho(-1000.0f, 1000.0f, -1000.0f, 1000.0f, near_plane, far_plane);
 	lightView = glm::lookAt(lightPos,
-		glm::vec3(0.0f, 0.0f, 0.0f),
+		glm::vec3(0.0f, 20.0f, 50.0f),
 		glm::vec3(0.0f, 1.0f, 0.0f));
 	lightSpaceMatrix = lightProjection * lightView;
 
@@ -414,6 +426,10 @@ void MyGame::render()
 
 	m_depthBuffer->unbind();
 
+
+
+	
+
 	glViewport(0, 0, m_WindowWidth, m_WindowHeight);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -423,6 +439,8 @@ void MyGame::render()
 
 
 	m_PassThroughPostProcess->getBuffer()->bind();
+
+
 
 	
 
@@ -454,7 +472,8 @@ void MyGame::render()
 
 
 		GLuint m_ShadowTexture = m_depthBuffer->GetTexture();
-		//glActiveTexture(2);
+		glActiveTexture(8);
+
 
 		glBindTexture(GL_TEXTURE_2D, m_ShadowTexture);
 
@@ -468,12 +487,14 @@ void MyGame::render()
 		glSamplerParameteri(Sampler, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 
-		glBindSampler(0, Sampler);
-		glActiveTexture(GL_TEXTURE0);
+		glBindSampler(8, Sampler);
+		glActiveTexture(GL_TEXTURE8);
 		glBindTexture(GL_TEXTURE_2D, m_ShadowTexture);
 		GLint shadowTex = glGetUniformLocation(currentShader, "shadowMap");
-		glUniform1i(shadowTex, 0);
+		glUniform1i(shadowTex, 8);
 
+		
+		
 
 		temp->onRender(m_ViewMatrix, m_ProjMatrix);
 		temp->draw();
@@ -550,7 +571,7 @@ void MyGame::render()
 
 
 
-
+	
 
 	//Do above again but with out the object for loop
 }

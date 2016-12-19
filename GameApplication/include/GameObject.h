@@ -32,7 +32,8 @@ public:
 	void setTransform(vec3 scale, vec3 pos, vec3 rot);
 
 	//RendererStuff
-	void loadShadersAndTextures(const string& vsFilename, const string& fsFilename, const string& diffFilename, const string& spFilename, const string& norFilename, const string& heigFilename);
+	//const string& vsFilename, const string& fsFilename, 
+	void loadShadersAndTextures(const string& diffFilename, const string& spFilename, const string& norFilename, const string& heigFilename);
 
 
 	mat4& getModelMatrix()
@@ -57,6 +58,16 @@ private:
 	Renderer m_GameObjectRenderer;
 	Mesh m_GameObjectMesh;
 	BoxCollider m_GameObjectCollider;
+	bool m_Height = false;
+
+	string parallaxFS = "assets/shaders/parallaxMappingFS2.glsl";
+	string parallaxVS = "assets/shaders/parallaxMappingVS2.glsl";
+
+	string normalFS = "assets/shaders/lightTextureFS2.glsl";
+	string normalVS = "assets/shaders/lightTextureVS2.glsl";
+
+	string specFS = "assets/shaders/lightFS2.glsl";
+	string specVS = "assets/shaders/lightVS2.glsl";
 };
 
 #endif
