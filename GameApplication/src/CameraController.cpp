@@ -98,7 +98,7 @@ void CameraController::onUpdate()
 		m_Force = 0.0f;
 	}
 
-	cout << m_Force << " " << m_Grounded << "\n";
+	//cout << m_Force << " " << m_Grounded << "\n";
 }
 
 void CameraController::jump(bool debug)

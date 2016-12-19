@@ -6,7 +6,7 @@ CommandLineParser::CommandLineParser(int argc,char * argv[])
   for (int i=1;i<argc;++i)
   {
     m_CommandArguments.push_back(string(argv[i]));
-    cout<<"Commands "<<m_CommandArguments[i-1]<<endl;
+    //cout<<"Commands "<<m_CommandArguments[i-1]<<endl;
   }
 }
 
@@ -30,7 +30,7 @@ void CommandLineParser::parse(ProgramOptions &options)
     splitPos=iter->find('=');
     key=iter->substr(0,splitPos);
     value=iter->substr(splitPos+1,iter->length());
-    cout<<"Commands out "<<key<<" "<<value<<endl;
+    //cout<<"Commands out "<<key<<" "<<value<<endl;
     options.addOption(key,value);
 
   }

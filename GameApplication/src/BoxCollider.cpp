@@ -23,7 +23,7 @@ void BoxCollider::scaleCollider()
 	m_High.z *= m_Scale.z;
 	m_Low.z *= m_Scale.z;
 
-	cout << m_Position.x + m_High.x << " " << m_Position.x + m_Low.x << " " << m_Position.y + m_High.y << " " << m_Position.y + m_Low.y << " " << m_Position.z + m_High.z << " " << m_Position.z + m_Low.z << "\n";
+	//cout << m_Position.x + m_High.x << " " << m_Position.x + m_Low.x << " " << m_Position.y + m_High.y << " " << m_Position.y + m_Low.y << " " << m_Position.z + m_High.z << " " << m_Position.z + m_Low.z << "\n";
 }
 
 bool BoxCollider::checkCollision(vec3 position)

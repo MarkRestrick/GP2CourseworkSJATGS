@@ -17,7 +17,7 @@ public:
 	void loadShaders(const string& vsFilename, const string& fsFilename);
 	void onDestroy();
 
-	void onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMatrix, int numberOfIndices, GLuint VBO, GLuint EBO);
+	void onRender(mat4& view, mat4& projection, GLuint VAO, mat4& modelMatrix, int numberOfIndices, GLuint VBO, GLuint EBO, bool Height);
 
 	void draw(GLuint VAO, GLuint VBO, GLuint EBO, int numberOfIndices);
 
@@ -100,6 +100,8 @@ private:
 	vec4 m_DiffuseMaterialColour;
 	vec4 m_SpecularMaterialColour;
 	float m_SpecularMaterialPower;
+
+
 };
 
 #endif

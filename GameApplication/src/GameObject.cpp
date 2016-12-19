@@ -35,7 +35,7 @@ void GameObject::onRender(mat4& view, mat4& projection)
 	GLuint VBO = m_GameObjectMesh.getVBO();
 	GLuint EBO = m_GameObjectMesh.getEBO();
 	GLuint numberOfVertices = m_GameObjectMesh.getNumberOfIndices();
-	m_GameObjectRenderer.onRender(view, projection, VAO, m_ModelMatrix, numberOfVertices, VBO, EBO);
+	m_GameObjectRenderer.onRender(view, projection, VAO, m_ModelMatrix, numberOfVertices, VBO, EBO, m_Height);
 }
 
 void GameObject::onInit()
@@ -71,13 +71,41 @@ void GameObject::setTransform(vec3 scale, vec3 pos, vec3 rot)
 }
 
 //KS function to set sharders and textures
-void GameObject::loadShadersAndTextures(const string & vsFilename, const string & fsFilename, const string & diffFilename, const string & spFilename, const string & norFilename, const string & heigFilename)
+//const string & vsFilename, const string & fsFilename, 
+void GameObject::loadShadersAndTextures(const string & diffFilename, const string & spFilename, const string & norFilename, const string & heigFilename)
 {
+
+	if (heigFilename != "none") //If we have a heightmap
+	{
+		m_GameObjectRenderer.loadShaders(parallaxVS, parallaxFS);
+		m_GameObjectRenderer.loadDiffuseTexture(diffFilename);
+		m_GameObjectRenderer.loadSpecularTexture(spFilename);
+		m_GameObjectRenderer.loadNormalTexture(norFilename);
+		m_GameObjectRenderer.loadHeightTexture(heigFilename);
+		m_Height = true;
+	}
+	else if (heigFilename == "none" && norFilename != "none") //If we have no heightmap, but a normal map
+	{
+		m_GameObjectRenderer.loadShaders(normalVS, normalFS);
+		m_GameObjectRenderer.loadDiffuseTexture(diffFilename);
+		m_GameObjectRenderer.loadSpecularTexture(spFilename);
+		m_GameObjectRenderer.loadNormalTexture(norFilename);
+		m_Height = false;
+
+	}
+	else //Otherwise assume spec
+	{
+		m_GameObjectRenderer.loadShaders(specVS, specFS);
+		m_GameObjectRenderer.loadDiffuseTexture(diffFilename);
+		m_GameObjectRenderer.loadSpecularTexture(spFilename);
+	}
+	/*
 	m_GameObjectRenderer.loadShaders(vsFilename, fsFilename);
 	m_GameObjectRenderer.loadDiffuseTexture(diffFilename);
 	m_GameObjectRenderer.loadSpecularTexture(spFilename);
 	m_GameObjectRenderer.loadNormalTexture(norFilename);
 	m_GameObjectRenderer.loadHeightTexture(heigFilename);
+	*/
 }
 
 void GameObject::copyVertexData(Vertex * pVertex, int numberOfVertices, int * pIndices, int numberOfIndices)
