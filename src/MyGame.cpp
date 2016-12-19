@@ -44,7 +44,7 @@ void MyGame::initScene()
 	{
 		vec3(5.0f, 5.0f, 5.0f),
 		vec3(5.0f, 5.0f, 5.0f),
-		vec3(1000.0f, 10.0f, 1000.0f), //MR Floor
+		vec3(200.0f, 10.0f, 200.0f), //MR Floor
 		vec3(100.0f, 50.0f, 1.0f), //MR Back wall
 		vec3(1.0f, 50.0f, 100.0f), //MR left wall
 		vec3(1.0f, 50.0f, 100.0f) //MR Right wall
@@ -53,7 +53,7 @@ void MyGame::initScene()
 	{
 		vec3(25.0f, 5.0f, 5.0f),
 		vec3(0.0f, 20.0f, 50.0f),
-		vec3(0.0f, 0.0f, 0.0f), //MR Floor
+		vec3(0.0f, 0.0f, -50.0f), //MR Floor
 		vec3(0.0f, 25.0f, 0.0f), //MR Back Wall
 		vec3(-50.0f, 25.0f, 0.0f), //MR left wall
 		vec3(50.0f, 25.0f, 0.0f) //MR right wall
@@ -136,8 +136,8 @@ void MyGame::initScene()
 	m_PostEffect->loadShader(fsPostFilename);
 	*/
 	
-	string PostVSFilename = ASSET_PATH + SHADER_PATH + "/postProcessingVS.glsl";
-	string PostFSFilename = ASSET_PATH + SHADER_PATH + "/simplePostProcessFS.glsl";
+
+
 
 
 
@@ -147,13 +147,18 @@ void MyGame::initScene()
 	*/
 
 	/*
-	
-	shared_ptr<PostProcess> post = shared_ptr<PostProcess>(new PostProcess());
-	string fsPostColourCorrectionFilename = ASSET_PATH + SHADER_PATH + "/SharpenFS.glsl";
-	post->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourCorrectionFilename);
-	addPostProcessingEffect(post);
+	if (m_Sharpen)
+	{
+		cout << "0";
+		shared_ptr<PostProcess> post = shared_ptr<PostProcess>(new PostProcess());
+		string fsPostColourCorrectionFilename = ASSET_PATH + SHADER_PATH + "/SharpenFS.glsl";
+		post->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourCorrectionFilename);
+		addPostProcessingEffect(post);
+	}
 
-	
+	*/
+
+	/*
 
 	post = shared_ptr<PostProcess>(new PostProcess());
 	string fsPostColourFilterFS = ASSET_PATH + SHADER_PATH + "/colourFilterFS.glsl";
@@ -339,6 +344,111 @@ void MyGame::onKeyDown(SDL_Keycode keyCode)
 
 		}
 
+		if (keyCode == SDLK_1)
+		{
+			if (!m_Sharpen)
+			{
+				shared_ptr<PostProcess> postsharpen = shared_ptr<PostProcess>(new PostProcess());
+				string fsPostColourCorrectionFilename = ASSET_PATH + SHADER_PATH + "/SharpenFS.glsl";
+				postsharpen->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourCorrectionFilename);
+				addPostProcessingEffect(postsharpen);
+				m_Sharpen = true;
+			}
+			else
+			{
+				for (int i = 0; i < m_PostProcessChain.size(); i++)
+				{
+					if (m_PostProcessChain[i]->getFS() == ASSET_PATH + SHADER_PATH + "/SharpenFS.glsl")
+					{
+						m_PostProcessChain.erase(m_PostProcessChain.begin()+i);
+						//m_PostProcessChain.pop_back();
+					}
+					
+					
+				}
+				m_Sharpen = false;
+			}
+		}
+
+		if (keyCode == SDLK_2)
+		{
+			if (!m_Blur)
+			{
+				shared_ptr<PostProcess> postsharpen = shared_ptr<PostProcess>(new PostProcess());
+				string fsPostColourCorrectionFilename = ASSET_PATH + SHADER_PATH + "/blurFS.glsl";
+				postsharpen->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourCorrectionFilename);
+				addPostProcessingEffect(postsharpen);
+				m_Blur = true;
+			}
+			else
+			{
+				for (int i = 0; i < m_PostProcessChain.size(); i++)
+				{
+					if (m_PostProcessChain[i]->getFS() == ASSET_PATH + SHADER_PATH + "/blurFS.glsl")
+					{
+						m_PostProcessChain.erase(m_PostProcessChain.begin() + i);
+						//m_PostProcessChain.pop_back();
+					}
+
+
+				}
+				m_Blur = false;
+			}
+		}
+
+		if (keyCode == SDLK_3)
+		{
+			if (!m_Invert)
+			{
+				shared_ptr<PostProcess> postsharpen = shared_ptr<PostProcess>(new PostProcess());
+				string fsPostColourCorrectionFilename = ASSET_PATH + SHADER_PATH + "/colourInvertFS.glsl";
+				postsharpen->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourCorrectionFilename);
+				addPostProcessingEffect(postsharpen);
+				m_Invert = true;
+			}
+			else
+			{
+				for (int i = 0; i < m_PostProcessChain.size(); i++)
+				{
+					if (m_PostProcessChain[i]->getFS() == ASSET_PATH + SHADER_PATH + "/colourInvertFS.glsl")
+					{
+						m_PostProcessChain.erase(m_PostProcessChain.begin() + i);
+						//m_PostProcessChain.pop_back();
+					}
+
+
+				}
+				m_Invert = false;
+			}
+		}
+
+		if (keyCode == SDLK_4)
+		{
+			if (!m_ColourCorrect)
+			{
+				shared_ptr<PostProcess> postsharpen = shared_ptr<PostProcess>(new PostProcess());
+				string fsPostColourCorrectionFilename = ASSET_PATH + SHADER_PATH + "/ColourFilterFS.glsl";
+				postsharpen->create(m_WindowWidth, m_WindowHeight, PostVSFilename, fsPostColourCorrectionFilename);
+				addPostProcessingEffect(postsharpen);
+				m_ColourCorrect = true;
+			}
+			else
+			{
+				for (int i = 0; i < m_PostProcessChain.size(); i++)
+				{
+					if (m_PostProcessChain[i]->getFS() == ASSET_PATH + SHADER_PATH + "/ColourFilterFS.glsl")
+					{
+						m_PostProcessChain.erase(m_PostProcessChain.begin() + i);
+						//m_PostProcessChain.pop_back();
+					}
+
+
+				}
+				m_ColourCorrect = false;
+			}
+			
+		}
+
 }
 
 void MyGame::onMouseMove(float x, float y)
@@ -373,6 +483,8 @@ void MyGame::update()
 {
 	GameApplication::update();
 
+
+
 	m_ProjMatrix = perspective(radians(45.0f), (float)m_WindowWidth / (float)m_WindowHeight, 0.1f, 1000.0f);
 	m_ViewMatrix = lookAt(m_CameraPosition, m_CameraPosition + m_CameraLookAtPosition, vec3(0.0f, 1.0f, 0.0f));
 
@@ -402,7 +514,13 @@ void MyGame::update()
 void MyGame::render()
 {
 
+
+
+
+
 	m_ViewMatrix = lookAt(m_Camera->getCameraPosition(), m_Camera->getLookAtPosition(), vec3(0.0f, 1.0f, 0.0f));
+
+	
 
 	GameApplication::render();
 
@@ -443,7 +561,7 @@ void MyGame::render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-
+	
 
 
 

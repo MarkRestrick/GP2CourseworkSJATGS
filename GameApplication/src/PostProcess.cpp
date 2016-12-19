@@ -14,6 +14,8 @@ PostProcess::~PostProcess()
 
 bool PostProcess::create(int bufferWidth, int bufferHeight, const string& vsFilename, const string& fsFilename)
 {
+	m_fs = fsFilename;
+
 	m_PostBuffer = unique_ptr<PostProcessBuffer>(new PostProcessBuffer());
 	m_PostBuffer->create(bufferWidth, bufferHeight);
 

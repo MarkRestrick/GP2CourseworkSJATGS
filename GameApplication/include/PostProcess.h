@@ -30,7 +30,14 @@ public:
 		return m_PostEffect.get();
 	};
 
+	string getFS()
+	{
+		return m_fs;
+	}
+
 private:
+	string m_fs;
+
 	unique_ptr<PostProcessBuffer> m_PostBuffer;
 	unique_ptr<ScreenAlignedQuad> m_ScreenAlignedQuad;
 	unique_ptr<PostProcessingEffect> m_PostEffect;

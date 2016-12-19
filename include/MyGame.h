@@ -25,7 +25,7 @@ public:
 protected:
 
 	unique_ptr<PostProcess> m_PassThroughPostProcess;
-	unique_ptr<PostProcess> m_PassThroughPostProcess2;
+	//unique_ptr<PostProcess> m_PassThroughPostProcess2;
 	vector < shared_ptr<PostProcess> > m_PostProcessChain;
 	shared_ptr<depthFrameBuffer> m_depthBuffer;
 	//Post Processing
@@ -52,5 +52,13 @@ private:
 	
 	bool m_DebugMode = false;
 	GLuint m_shadowProgram;
+
+	string PostVSFilename = "assets/shaders/postProcessingVS.glsl";
+	string PostFSFilename = "assets/shaders/simplePostProcessFS.glsl";
+
+	bool m_Sharpen = false;
+	bool m_Blur = false;
+	bool m_Invert = false;
+	bool m_ColourCorrect = false;
 };
 #endif
