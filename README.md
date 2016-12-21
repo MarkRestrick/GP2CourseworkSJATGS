@@ -13,5 +13,7 @@ Left Shift: If in debug mode move down
 
 #Group Members
 Mark Restrick – S1425688 - Post Processing
+
 Kieran Song – S1423416 - Shadow Mapping
+
 Andrew Duncan – S1430556 - First Person Controller
